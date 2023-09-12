@@ -192,8 +192,8 @@ This page development is made with useful help of references and API from:
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [dashboard_1]: https://github.com/hnralmeida/project.rent-a-movie/blob/main/assets/em-construcao.png?raw=true
-[dashboard_2]: https://github.com/hnralmeida/project.rent-a-movie/blob/main/public/assets/em-construcao.png?raw=true
-[datagrid]: https://github.com/hnralmeida/project.rent-a-movie/blob/main/public/assets/em-construcao.png?raw=true
-[product-screenshot]: https://github.com/hnralmeida/project.rent-a-movie/blob/main/public/assets/em-construcao.png?raw=true
+[dashboard_2]: https://github.com/hnralmeida/project.rent-a-movie/blob/main/assets/em-construcao.png?raw=true
+[datagrid]: https://github.com/hnralmeida/project.rent-a-movie/blob/main/assets/em-construcao.png?raw=true
+[product-screenshot]: https://github.com/hnralmeida/project.rent-a-movie/blob/main/assets/em-construcao.png?raw=true
 [Vite.js]: https://img.shields.io/badge/vite.js-000000?style=for-the-badge&logo=vite
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
