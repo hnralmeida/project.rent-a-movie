@@ -5,7 +5,6 @@ import com.example.backend.Models.Actor;
 import com.example.backend.Repository.ActorRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.record.RecordModule;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +15,30 @@ import java.util.List;
 public class ActorService {
     private final ActorRepository repository;
 
-    public List<ActorDTO> getList() {
+    public ResponseEntity<List<ActorDTO>> getList() {
         ModelMapper mapper = new ModelMapper();
-        return repository.findAll().stream().map(actor -> (mapper.map(actor, ActorDTO.class))).toList();
+        return ResponseEntity.ok(
+                repository
+                        .findAll()
+                        .stream()
+                        .map(actor -> (mapper.map(actor, ActorDTO.class)))
+                        .toList());
     }
 
-    public ActorDTO findById(Long id) {
+    public ResponseEntity<ActorDTO> findById(Long id) {
         ModelMapper mapper = new ModelMapper();
+
         if(!repository.existsById(id)) {
-            return null;
+            return ResponseEntity.notFound().build();
         }
-        return mapper.map(repository.findById(id), ActorDTO.class);
+        return ResponseEntity.ok(mapper.map(repository.findById(id), ActorDTO.class));
     }
 
-    public void insert(ActorDTO actorDTO) {
+    public ResponseEntity insert(ActorDTO actorDTO) {
         ModelMapper mapper = new ModelMapper();
         Actor actor  = mapper.map(actorDTO, Actor.class);
         repository.save(actor);
+        return ResponseEntity.ok().build();
     }
 
     public ResponseEntity<Actor> update(Long id, ActorDTO actorDTO) {
@@ -43,11 +49,12 @@ public class ActorService {
         return ResponseEntity.ok(actor);
     }
 
-    public void delete(Long id) {
-        ModelMapper mapper = new ModelMapper();
-
-        if(repository.existsById(id)) {
-            repository.deleteById(id);
+    public ResponseEntity delete(Long id) {
+        if(!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
         }
+
+        repository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }

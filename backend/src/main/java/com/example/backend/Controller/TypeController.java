@@ -1,7 +1,8 @@
 package com.example.backend.Controller;
 
-import java.util.List;
-
+import com.example.backend.DTO.TypeDTO;
+import com.example.backend.Services.TypeService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,41 +13,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.DTO.ActorDTO;
-import com.example.backend.Models.Actor;
-import com.example.backend.Services.ActorService;
+import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RestController
-@RequestMapping("/api/ator")
-public class ActorController {
-    private final ActorService service;
+@RequestMapping("/api/classe")
+public class TypeController {
+    private final TypeService service;
 
     @GetMapping
-    public ResponseEntity<List<ActorDTO>> getList() {
+    public ResponseEntity<List<TypeDTO>> getList() {
         return service.getList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ActorDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<TypeDTO> findById(@PathVariable Long id) {
         return service.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity insert(@RequestBody ActorDTO actor) {
-        return service.insert(actor);
+    public ResponseEntity insert(@RequestBody TypeDTO typeDTO) {
+        return service.insert(typeDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Actor> update(@PathVariable Long id, @RequestBody ActorDTO actorDTO) {
-        return service.update(id, actorDTO);
+    public ResponseEntity<TypeDTO> update(@PathVariable Long id, @RequestBody TypeDTO typeDTO) {
+        return service.update(id, typeDTO);
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
-         return service.delete(id);
+        return service.delete(id);
     }
-
 }

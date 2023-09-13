@@ -23,18 +23,18 @@ public class DirectorController {
     private final DirectorService service;
 
     @GetMapping
-    public List<DirectorDTO> getList() {
+    public ResponseEntity<List<DirectorDTO>> getList() {
         return service.getList();
     }
 
     @GetMapping("/{id}")
-    public DirectorDTO findById(@PathVariable Long id) {
+    public ResponseEntity<DirectorDTO> findById(@PathVariable Long id) {
         return service.findById(id);
     }
 
     @PostMapping
-    public void insert(@RequestBody DirectorDTO director) {
-        service.insert(director);
+    public ResponseEntity insert(@RequestBody DirectorDTO director) {
+        return service.insert(director);
     }
 
     @PutMapping("/{id}")
@@ -43,7 +43,7 @@ public class DirectorController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity delete(@PathVariable Long id) {
+        return service.delete(id);
     }
 }

@@ -15,20 +15,30 @@ import java.util.List;
 public class DirectorService {
     private final DirectorRepository repository;
 
-    public List<DirectorDTO> getList() {
+    public ResponseEntity<List<DirectorDTO>> getList() {
         ModelMapper mapper = new ModelMapper();
-        return repository.findAll().stream().map(director -> (mapper.map(director, DirectorDTO.class))).toList();
+        return ResponseEntity.ok(repository
+                .findAll()
+                .stream()
+                .map(director -> (mapper.map(director, DirectorDTO.class)))
+                .toList());
     }
 
-    public DirectorDTO findById(Long id) {
+    public ResponseEntity<DirectorDTO> findById(Long id) {
         ModelMapper mapper = new ModelMapper();
-        return mapper.map(repository.findById(id), DirectorDTO.class);
+
+        if(!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(mapper.map(repository.findById(id), DirectorDTO.class));
     }
 
-    public void insert(DirectorDTO directorDTO) {
+    public ResponseEntity insert(DirectorDTO directorDTO) {
         ModelMapper mapper = new ModelMapper();
         Director director = mapper.map(directorDTO, Director.class);
         repository.save(director);
+        return ResponseEntity.ok().build();
+
     }
 
     public ResponseEntity<Director> update(Long id, DirectorDTO directorDTO) {
@@ -39,11 +49,12 @@ public class DirectorService {
         return ResponseEntity.ok(director);
     }
 
-    public void delete(Long id) {
-        ModelMapper mapper = new ModelMapper();
-
-        if(repository.existsById(id)) {
-            repository.deleteById(id);
+    public ResponseEntity delete(Long id) {
+        if(!repository.existsById(id)) {
+            ResponseEntity.notFound().build();
         }
+
+        repository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
