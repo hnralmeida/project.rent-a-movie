@@ -33,7 +33,7 @@ public class DirectorService {
 
     public ResponseEntity<Director> update(Long id, DirectorDTO directorDTO) {
         ModelMapper mapper = new ModelMapper();
-        Director director = (Director) repository.findById(id).stream().map(dict -> (mapper.map(dict, Director.class)));
+        Director director = mapper.map(repository.findById(id), Director.class);
         mapper.map(directorDTO, director);
         repository.save(director);
         return ResponseEntity.ok(director);
