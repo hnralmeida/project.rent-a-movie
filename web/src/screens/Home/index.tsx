@@ -1,10 +1,16 @@
+// FUnções
 import React from 'react';
-import { View, Text } from 'react-native';
+import logo from '../../assets/em-construcao.png';
 
 export function Home() {
+
+   
+
     return (
-        <View>
-            <Text>Home</Text>
-        </View>
+        <div className="App">
+            <body className="App-content">
+                <img src={logo} className="App-logo" alt="logo" />
+            </body>
+        </div>
     );
 }
