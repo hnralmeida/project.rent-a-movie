@@ -7,5 +7,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TypeDTO{
     private String name;
-    private Double value;
+    private Double classValue;
 }

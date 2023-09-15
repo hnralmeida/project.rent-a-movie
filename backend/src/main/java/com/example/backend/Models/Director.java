@@ -17,9 +17,9 @@ public class Director {
     @Id
     private Long id;
 
-    private Long name;
+    private String name;
 
-    public Director(Long name) {
+    public Director(String name) {
         this.name = name;
     }
 }
