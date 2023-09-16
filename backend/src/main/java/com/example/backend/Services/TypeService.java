@@ -36,6 +36,7 @@ public class TypeService {
         ModelMapper mapper = new ModelMapper();
         Type type = mapper.map(repository.findById(id), Type.class);
         mapper.map(typeDTO, type);
+        repository.save(type);
         return ResponseEntity.ok(typeDTO);
     }
 

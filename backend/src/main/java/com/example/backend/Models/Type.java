@@ -23,14 +23,14 @@ public class Type {
 
     private String name;
 
-    private Double value;
+    private Double classValue;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate returnDate;
 
-    public Type(String name, Double value, LocalDate returnDatedate) {
+    public Type(String name, Double classValue, LocalDate returnDatedate) {
         this.name = name;
-        this.value = value;
+        this.classValue = classValue;
         this.returnDate = returnDatedate;
     }
 }
