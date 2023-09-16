@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 // componentes
-import logo from '../assets/rentamovie.png';
+import logo from '../assets/rentamovie-darkmode.png';
 import { Sidebar } from '../components/sidebar';
 
 // Páginas
@@ -22,6 +22,13 @@ import ErrorPage from '../screens/ErrorPage';
 import Actor from '../screens/Actor';
 import ActorList from '../screens/ActorList';
 import ActorRegister from '../screens/ActorRegister';
+import ClassList from '../screens/ClassList';
+import Class from '../screens/Class';
+import DirectorList from '../screens/DirectorList';
+import Director from '../screens/Director';
+import { Link } from 'react-router-dom';
+import ClassRegister from '../screens/ClassRegister';
+import DirectorRegister from '../screens/DirectorRegister';
 
 export type TabStackParamsList = {
   Home: undefined,
@@ -46,7 +53,9 @@ export function StackRoutes() {
     <>
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <Link to="/">
+            <img src={logo} className="App-logo" alt="logo" />
+          </Link>
         </div>
 
         <Sidebar />
@@ -58,6 +67,7 @@ export function StackRoutes() {
               element={<Home />}
               errorElement={<ErrorBoundary />}
             />
+            
             {/* Atores  */}
             <Route
               path="/atores"
@@ -69,34 +79,48 @@ export function StackRoutes() {
               element={<Actor />}
               errorElement={<ErrorBoundary />}
             />
+            <Route
+              path="/atores/add"
+              element={<ActorRegister />}
+              errorElement={<ErrorBoundary />}
+            />
 
             {/* Locação  */}
             <Route
-              path="/locacao"
-              element={<ActorList />}
+              path="/filmes"
+              element={<ClassList />}
               errorElement={<ErrorBoundary />}
             />
             <Route
-              path="/locacao/:classId"
-              element={<Actor />}
+              path="/filmes/:classId"
+              element={<Class />}
               errorElement={<ErrorBoundary />}
             />
-            
+            <Route
+              path="/filmes/add"
+              element={<ClassRegister />}
+              errorElement={<ErrorBoundary />}
+            />
+
             {/* Diretores  */}
             <Route
               path="/diretores"
-              element={<ActorList />}
+              element={<DirectorList />}
               errorElement={<ErrorBoundary />}
             />
             <Route
               path="/diretores/:directorId"
-              element={<Actor />}
+              element={<Director />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/diretores/add"
+              element={<DirectorRegister />}
               errorElement={<ErrorBoundary />}
             />
 
           </Routes>
         </div>
-
       </div>
     </>
   );

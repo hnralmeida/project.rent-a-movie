@@ -3,44 +3,38 @@ import React from 'react';
 
 // Navegação
 import { useNavigate, useRouteError } from "react-router-dom";
-import getActors from '../../services/getActors';
+import getDirectors from '../../services/getDirectors';
 
-export default function ActorList() {
+export default function DirectorList() {
 
-  const [actorList, setActorList] = React.useState<any[]>([]);
+  const [directorsList, setDirector] = React.useState<any[]>([]);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getActors().then((response) => {
-      setActorList(response);
+    getDirectors().then((response) => {
+      setDirector(response);
     })
   }, []);
+
 
   return (
     <div className="App-content">
       <table>
         <thead>
           <tr>
-            <th>Nome do Ator</th>
+            <th>Nome do Diretor</th>
             <th>Ação</th>
           </tr>
         </thead>
         <tbody>
-          {actorList.map((ator, index) => (
+          {directorsList.map((ator, index) => (
             <tr key={index}>
-              <td>{ator.name}</td>
+              <td>{ator.nome}</td>
               <td className='button-td-div'>
-                <button
-                  id='edit-actor'
-                  className="button-td-left"
-                  onClick={() => navigate('add', { state: { actorProps: ator } })}
-                >
+                <button id='edit-actor' className="button-td-left">
                   Editar
                 </button>
-                <button
-                  id='delete-actor'
-                  className="button-td-right"
-                >
+                <button id='delete-actor' className="button-td-right">
                   Excluir
                 </button>
               </td>
@@ -53,7 +47,7 @@ export default function ActorList() {
         className='add-actor'
         onClick={() => navigate('add')}
       >
-        Adicionar Ator
+        Adicionar Diretor
       </button>
     </div>
   );

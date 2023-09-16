@@ -21,23 +21,37 @@ export function Sidebar() {
             </button>
 
             <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
+
+                {/* Home */}
                 <button className='button-nav' onClick={() => {
                     navigate("/")
                     setMenuOpen(false);
                 }}>
                     Home
                 </button>
+
+                {/* Atores */}
                 <button className='button-nav' onClick={() => {
                     navigate("atores")
                     setMenuOpen(false)
                 }}>
                     Atores
                 </button>
+
+                {/* Filmes */}
                 <button className='button-nav' onClick={() => {
                     navigate("filmes")
                     setMenuOpen(false)
                 }}>
                     Filmes
+                </button>
+
+                {/* Diretores */}
+                <button className='button-nav' onClick={() => {
+                    navigate("diretores")
+                    setMenuOpen(false)
+                }}>
+                    Diretores
                 </button>
             </div>
         </>

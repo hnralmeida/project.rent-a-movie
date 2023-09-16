@@ -1,36 +1,26 @@
 import React from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+export default function DirectorRegister() {
 
-export default function ActorRegister() {
-
-    const [actorName, setActorName] = React.useState('');
-    const [actorProps, setActorProps] = React.useState('');
+    const [directorName, setDirectorName] = React.useState('');
     const navigate = useNavigate();
-    const params = useLocation();
 
     function handleSubmit() {
 
-        alert(actorName + " Cadastrado com sucesso!");
+        alert(directorName + " Cadastrado com sucesso!");
     }
 
     function handleInputChange(event: any) {
-        setActorName(event.target.value);
+        setDirectorName(event.target.value);
     }
-
-    React.useEffect(() => {
-        params.state ? (
-            setActorName(params.state.actorProps.name),
-            setActorProps(params.state.actorProps)
-        ) : null;
-    }, [params]);
 
     return (
         <div className="App-content">
             <div className="row-content">
                 <button
                     className='back-button'
-                    onClick={() => navigate('/atores')}
+                    onClick={() => navigate('/diretores')}
                 >
                     Voltar
                 </button>
@@ -38,10 +28,9 @@ export default function ActorRegister() {
                     <div>
                         <label>Nome:</label>
                         <input
-                            className="input-space"
                             type="text"
-                            name="nome"
-                            value={actorName}
+                            name="name"
+                            value={directorName}
                             onChange={handleInputChange}
                         />
                     </div>
@@ -53,7 +42,7 @@ export default function ActorRegister() {
                             className='submit-button'
                             type="submit"
                         >
-                            {actorProps ? 'Editar ator' : 'Cadastrar Ator'}
+                            Cadastrar Diretor
                         </button>
                     </div>
                 </form>
