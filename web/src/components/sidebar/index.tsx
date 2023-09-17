@@ -1,11 +1,13 @@
 // FUnções
 import React from 'react';
-import logo from '../../assets/rentamovie.png';
+import logo from '../../assets/rentamovie-darkmode.png';
+
 
 //Navegaçao
 import { Navigate, useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-export function Sidebar() {
+export function TopBar() {
 
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = React.useState(false);
@@ -16,6 +18,12 @@ export function Sidebar() {
 
     return (
         <>
+            <div className="App-header">
+                <Link to="/">
+                    <img src={logo} className="App-logo" alt="logo" />
+                </Link>
+            </div>
+
             <button className="toggle-menu" onClick={toggleMenu}>
                 {menuOpen ? 'Fechar Menu' : 'Abrir Menu'}
             </button>

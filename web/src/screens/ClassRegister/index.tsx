@@ -1,5 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import updateClass from '../../services/updateClass';
+import postClass from '../../services/postClass';
 
 export default function ClassRegister() {
 
@@ -7,11 +9,21 @@ export default function ClassRegister() {
     const [value, setValue] = React.useState('');
     const [deadline, setDeadline] = React.useState('');
 
+    const [classProps, setClassProps] = React.useState<any>(null);
     const navigate = useNavigate();
+    const params = useLocation();
 
     function handleSubmit() {
-
-        alert(name + " Cadastrado com sucesso!");
+        classProps ?
+            updateClass(name, value, deadline, classProps.id).then((data) => {
+                alert(data + " Atualizado com sucesso!");
+                navigate('/filmes');
+            })
+            :
+            postClass(name, value, deadline).then((data) => {
+                alert(data + " Cadastrado com sucesso!");
+                navigate('/filmes');
+            })
     }
 
     function handleNameInputChange(event: any) {
@@ -25,6 +37,16 @@ export default function ClassRegister() {
     function handleDeadlineInputChange(event: any) {
         setDeadline(event.target.value);
     }
+
+    React.useEffect(() => {
+        console.log(params.state.classProps)
+        params.state ? (
+            setName(params.state.classProps.name),
+            setValue(params.state.classProps.value),
+            setDeadline(params.state.classProps.deadline),
+            setClassProps(params.state.classProps)
+        ) : null;
+    }, [params]);
 
     return (
         <div className="App-content">
@@ -75,7 +97,7 @@ export default function ClassRegister() {
                             className='submit-button'
                             type="submit"
                         >
-                            Cadastrar Ator
+                            {classProps ? 'Editar Filme' : 'Cadastrar Filme'}
                         </button>
                     </div>
                 </form>

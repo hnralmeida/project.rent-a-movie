@@ -1,10 +1,10 @@
-export default function updateActors(actorName: any, actorId: number): Promise<any> {
+export default function deleteClass(idClass: any): Promise<any> {
 
     return new Promise((resolve) => {
-        resolve(actorName + 'updateActors concluído')
+        resolve('delete ' + idClass)
         
-        // fetch("/api/actors", {
-        //     method: "PUT",
+        // fetch("/api/class", {
+        //     method: "DELETE",
         //     headers: {
         //         "content-type": "application/json",
         //     },

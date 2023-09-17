@@ -13,8 +13,7 @@ import {
 } from "react-router-dom";
 
 // componentes
-import logo from '../assets/rentamovie-darkmode.png';
-import { Sidebar } from '../components/sidebar';
+import { TopBar } from '../components/sidebar';
 
 // Páginas
 import { Home } from '../screens/Home';
@@ -52,13 +51,7 @@ export function StackRoutes() {
   return (
     <>
       <div className="App">
-        <div className="App-header">
-          <Link to="/">
-            <img src={logo} className="App-logo" alt="logo" />
-          </Link>
-        </div>
-
-        <Sidebar />
+        <TopBar />
 
         <div className="App-pages">
           <Routes>

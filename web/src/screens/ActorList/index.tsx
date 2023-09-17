@@ -4,6 +4,7 @@ import React from 'react';
 // Navegação
 import { useNavigate, useRouteError } from "react-router-dom";
 import getActors from '../../services/getActors';
+import deleteActors from '../../services/deleteActors';
 
 export default function ActorList() {
 
@@ -40,6 +41,7 @@ export default function ActorList() {
                 <button
                   id='delete-actor'
                   className="button-td-right"
+                  onClick={() => deleteActors(ator.id)}
                 >
                   Excluir
                 </button>

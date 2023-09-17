@@ -1,10 +1,10 @@
-export default function updateActors(actorName: any, actorId: number): Promise<any> {
+export default function postDirectors(directorName: any): Promise<any> {
 
     return new Promise((resolve) => {
-        resolve(actorName + 'updateActors concluído')
+        resolve(directorName + ' postDirectors concluído')
         
         // fetch("/api/actors", {
-        //     method: "PUT",
+        //     method: "POST",
         //     headers: {
         //         "content-type": "application/json",
         //     },

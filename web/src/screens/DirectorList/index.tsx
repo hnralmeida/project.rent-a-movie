@@ -4,6 +4,7 @@ import React from 'react';
 // Navegação
 import { useNavigate, useRouteError } from "react-router-dom";
 import getDirectors from '../../services/getDirectors';
+import deleteDirectors from '../../services/deleteDirector';
 
 export default function DirectorList() {
 
@@ -31,10 +32,18 @@ export default function DirectorList() {
             <tr key={index}>
               <td>{ator.nome}</td>
               <td className='button-td-div'>
-                <button id='edit-actor' className="button-td-left">
+                <button
+                  id='edit-actor'
+                  className="button-td-left"
+                  onClick={()=> navigate('add', { state: { actorProps: ator } })}
+                >
                   Editar
                 </button>
-                <button id='delete-actor' className="button-td-right">
+                <button
+                  id='delete-actor'
+                  className="button-td-right"
+                  onClick={()=> deleteDirectors(ator.id)}
+                >
                   Excluir
                 </button>
               </td>

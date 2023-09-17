@@ -4,6 +4,7 @@ import React from 'react';
 // Navegação
 import { useNavigate, useRouteError } from "react-router-dom";
 import getClass from '../../services/getClass';
+import deleteClass from '../../services/deleteClass';
 
 export default function ClassList() {
 
@@ -28,19 +29,27 @@ export default function ClassList() {
           </tr>
         </thead>
         <tbody>
-          {classList.map((ator, index) => (
+          {classList.map((classKey, index) => (
             <tr key={index}>
-              <td>{ator.nome}</td>
+              <td>{classKey.name}</td>
               {
-                <td className='td-center'>R${ator.valor.includes(",00") ? ator.valor : `${ator.valor},00`}</td>
+                <td className='td-center'>R${classKey.value.includes(",00") ? classKey.value : `${classKey.value},00`}</td>
               }
 
-              <td className='td-center'>{ator.prazoDevolucao} dias</td>
+              <td className='td-center'>{classKey.deadline} dias</td>
               <td className='button-td-div'>
-                <button id='edit-actor' className="button-td-left">
+                <button
+                  id='edit-actor'
+                  className="button-td-left"
+                  onClick={()=>navigate('add', { state: { classProps: classKey } })}
+                >
                   Editar
                 </button>
-                <button id='delete-actor' className="button-td-right">
+                <button
+                  id='delete-actor'
+                  className="button-td-right"
+                  onClick={()=> deleteClass(classKey.id)}
+                >
                   Excluir
                 </button>
               </td>

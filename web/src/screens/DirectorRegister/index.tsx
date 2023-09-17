@@ -1,14 +1,27 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import updateDirector from '../../services/updateDirector';
+import postDirectors from '../../services/postDirectors';
 
 export default function DirectorRegister() {
 
     const [directorName, setDirectorName] = React.useState('');
+    const [directorProps, detDirectorProps] = React.useState<any>(null);
     const navigate = useNavigate();
+    const params = useLocation();
 
     function handleSubmit() {
+        directorProps ?
+            updateDirector(directorName, directorProps.id).then((data) => {
+                alert(data + " Atualizado com sucesso!");
+                navigate('/diretores');
+            })
+            :
+            postDirectors(directorName).then((data) => {
+                alert(data + " Cadastrado com sucesso!");
+                navigate('/diretores');
+            })
 
-        alert(directorName + " Cadastrado com sucesso!");
     }
 
     function handleInputChange(event: any) {
@@ -42,7 +55,7 @@ export default function DirectorRegister() {
                             className='submit-button'
                             type="submit"
                         >
-                            Cadastrar Diretor
+                            {directorProps ? 'Editar Diretor' : 'Cadastrar Diretor'} 
                         </button>
                     </div>
                 </form>

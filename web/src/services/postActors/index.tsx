@@ -1,7 +1,7 @@
-export default function postActors(): Promise<any> {
+export default function postActors(actorName: any): Promise<any> {
 
     return new Promise((resolve) => {
-        resolve('postActors concluído')
+        resolve(actorName + ' postActors concluído')
         
         // fetch("/api/actors", {
         //     method: "POST",

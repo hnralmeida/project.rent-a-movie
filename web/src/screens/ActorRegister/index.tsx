@@ -1,17 +1,28 @@
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import postActors from '../../services/postActors';
+import updateActors from '../../services/updateActors';
 
 
 export default function ActorRegister() {
 
     const [actorName, setActorName] = React.useState('');
-    const [actorProps, setActorProps] = React.useState('');
+    const [actorProps, setActorProps] = React.useState<any>(null);
     const navigate = useNavigate();
     const params = useLocation();
 
     function handleSubmit() {
+        actorProps ? 
+        updateActors(actorName, actorProps.id).then((data)=>{
+            alert(data + " Atualizado com sucesso!");
+            navigate('/atores');
+        })
+        :
+        postActors(actorName).then((data)=>{
+            alert(data + " Cadastrado com sucesso!");
+            navigate('/atores');
+        })
 
-        alert(actorName + " Cadastrado com sucesso!");
     }
 
     function handleInputChange(event: any) {

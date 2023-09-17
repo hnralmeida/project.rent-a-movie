@@ -1,9 +1,9 @@
-export default function updateActors(actorName: any, actorId: number): Promise<any> {
+export default function updateDirector(actorName: any, actorId: number): Promise<any> {
 
     return new Promise((resolve) => {
-        resolve(actorName + 'updateActors concluído')
+        resolve(actorName + 'updateDirectors concluído')
         
-        // fetch("/api/actors", {
+        // fetch("/api/directors", {
         //     method: "PUT",
         //     headers: {
         //         "content-type": "application/json",
