@@ -9,6 +9,16 @@
   color: white;
 }
 
+.App-logo {
+  height: 160px;
+  pointer-events: none;
+}
+
+.App-building {
+  height: 400px;
+  pointer-events: none;
+}
+
 .App-header {
   background-color: #282c34;
   padding: 20px;
@@ -87,11 +97,6 @@
   padding: 10px;
   cursor: pointer;
   z-index: 1;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
 }
 
 .App-link {

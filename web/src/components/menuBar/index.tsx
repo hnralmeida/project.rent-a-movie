@@ -7,7 +7,7 @@ import logo from '../../assets/rentamovie-darkmode.png';
 import { Navigate, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-export function TopBar() {
+export function MenuBar() {
 
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = React.useState(false);
@@ -20,7 +20,7 @@ export function TopBar() {
         <>
             <div className="App-header">
                 <Link to="/">
-                    <img src={logo} className="App-logo" alt="logo" />
+                    <img src={logo} className="App-logo" alt="logo"/>
                 </Link>
             </div>
 

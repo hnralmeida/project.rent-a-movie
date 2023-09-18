@@ -18,12 +18,16 @@ export default function ClassRegister() {
             updateClass(name, value, returnDate, classProps.id).then((data) => {
                 alert(data + " Atualizado com sucesso!");
                 navigate('/filmes');
+            }).catch((error) => {
+                alert(error);
             })
             :
             postClass(name, value, returnDate).then((data) => {
                 alert(data + " Cadastrado com sucesso!");
                 navigate('/filmes');
-            })
+            }).catch((error) => {
+                alert(error);
+            });
     }
 
     function handleNameInputChange(event: any) {
