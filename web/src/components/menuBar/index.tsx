@@ -6,6 +6,7 @@ import logo from '../../assets/rentamovie-darkmode.png';
 //Navegaçao
 import { Navigate, useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import MenuItem from '../menuItem';
 
 export function MenuBar() {
 
@@ -20,7 +21,7 @@ export function MenuBar() {
         <>
             <div className="App-header">
                 <Link to="/">
-                    <img src={logo} className="App-logo" alt="logo"/>
+                    <img src={logo} className="App-logo" alt="logo" />
                 </Link>
             </div>
 
@@ -31,36 +32,41 @@ export function MenuBar() {
             <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
 
                 {/* Home */}
-                <button className='button-nav' onClick={() => {
-                    navigate("/")
-                    setMenuOpen(false);
-                }}>
-                    Home
-                </button>
+                <MenuItem
+                    menuName='Home'
+                    className='button-nav'
+                    onPress={() => {
+                        navigate("/")
+                        setMenuOpen(false);
+                    }}
+                />
 
                 {/* Atores */}
-                <button className='button-nav' onClick={() => {
-                    navigate("atores")
-                    setMenuOpen(false)
-                }}>
-                    Atores
-                </button>
+                <MenuItem
+                    menuName='Atores'
+                    className='button-nav'
+                    onPress={() => {
+                        navigate("atores")
+                        setMenuOpen(false)
+                    }} />
 
                 {/* Filmes */}
-                <button className='button-nav' onClick={() => {
-                    navigate("filmes")
-                    setMenuOpen(false)
-                }}>
-                    Filmes
-                </button>
+                <MenuItem
+                    menuName='Filmes'
+                    className='button-nav'
+                    onPress={() => {
+                        navigate("filmes")
+                        setMenuOpen(false)
+                    }} />
 
                 {/* Diretores */}
-                <button className='button-nav' onClick={() => {
-                    navigate("diretores")
-                    setMenuOpen(false)
-                }}>
-                    Diretores
-                </button>
+                <MenuItem
+                    menuName='Diretores'
+                    className='button-nav'
+                    onPress={() => {
+                        navigate("diretores")
+                        setMenuOpen(false)
+                    }} />
             </div>
         </>
     )
