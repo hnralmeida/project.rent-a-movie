@@ -21,7 +21,9 @@ export default function ActorRegister() {
         postActors(actorName).then((data)=>{
             alert(data + " Cadastrado com sucesso!");
             navigate('/atores');
-        })
+        }).catch((error)=>{
+            alert(error.message + " falha!");
+        });
 
     }
 

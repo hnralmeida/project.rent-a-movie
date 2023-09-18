@@ -1,15 +1,10 @@
+import api from "../api";
+
 export default function postActors(actorName: any): Promise<any> {
 
-    return new Promise((resolve) => {
-        resolve(actorName + ' postActors concluído')
-        
-        // fetch("/api/actors", {
-        //     method: "POST",
-        //     headers: {
-        //         "content-type": "application/json",
-        //     },
-        // }).then((res) => {
-        //     resolve(res.json())
-        // });
+    return new Promise((resolve, reject) => {
+        api.post("/api/ator").then((res: any) => {
+            resolve(res.json())
+        });
     })
 }

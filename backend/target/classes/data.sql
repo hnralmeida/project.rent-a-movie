@@ -1,0 +1,8 @@
+INSERT INTO actor(name) VALUES ('TESTE_ATOR1');
+INSERT INTO actor(name) VALUES ('TESTE_ATOR2');
+
+INSERT INTO director(name) VALUES ('TESTE_DIRETOR1');
+INSERT INTO director(name) VALUES ('TESTE_DIRETOR2');
+
+INSERT INTO type(class_value, name) VALUES (1, 'TESTE_CLASSE1');
+INSERT INTO type(class_value, name) VALUES (2, 'TESTE_CLASSE2');
