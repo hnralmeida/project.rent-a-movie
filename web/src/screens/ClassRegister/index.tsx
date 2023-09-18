@@ -7,7 +7,7 @@ export default function ClassRegister() {
 
     const [name, setName] = React.useState('');
     const [value, setValue] = React.useState('');
-    const [deadline, setDeadline] = React.useState('');
+    const [returnDate, setreturnDate] = React.useState('');
 
     const [classProps, setClassProps] = React.useState<any>(null);
     const navigate = useNavigate();
@@ -15,12 +15,12 @@ export default function ClassRegister() {
 
     function handleSubmit() {
         classProps ?
-            updateClass(name, value, deadline, classProps.id).then((data) => {
+            updateClass(name, value, returnDate, classProps.id).then((data) => {
                 alert(data + " Atualizado com sucesso!");
                 navigate('/filmes');
             })
             :
-            postClass(name, value, deadline).then((data) => {
+            postClass(name, value, returnDate).then((data) => {
                 alert(data + " Cadastrado com sucesso!");
                 navigate('/filmes');
             })
@@ -34,16 +34,15 @@ export default function ClassRegister() {
         setValue(event.target.value);
     }
 
-    function handleDeadlineInputChange(event: any) {
-        setDeadline(event.target.value);
+    function handlereturnDateInputChange(event: any) {
+        setreturnDate(event.target.value);
     }
 
     React.useEffect(() => {
-        console.log(params.state.classProps)
         params.state ? (
             setName(params.state.classProps.name),
             setValue(params.state.classProps.value),
-            setDeadline(params.state.classProps.deadline),
+            setreturnDate(params.state.classProps.returnDate),
             setClassProps(params.state.classProps)
         ) : null;
     }, [params]);
@@ -74,7 +73,7 @@ export default function ClassRegister() {
                         <input
                             className="input-space"
                             type="number"
-                            name="value"
+                            name="classValue"
                             value={value}
                             onChange={handleValueInputChange}
                         />
@@ -84,9 +83,9 @@ export default function ClassRegister() {
                         <input
                             className="input-space"
                             type="number"
-                            name="deadline"
-                            value={deadline}
-                            onChange={handleDeadlineInputChange}
+                            name="returnDate"
+                            value={returnDate}
+                            onChange={handlereturnDateInputChange}
                         />
                     </div>
 

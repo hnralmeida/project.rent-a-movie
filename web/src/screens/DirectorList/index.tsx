@@ -35,7 +35,7 @@ export default function DirectorList() {
                 <button
                   id='edit-actor'
                   className="button-td-left"
-                  onClick={()=> navigate('add', { state: { actorProps: director } })}
+                  onClick={()=> navigate('add', { state: { DirectorProps: director } })}
                 >
                   Editar
                 </button>

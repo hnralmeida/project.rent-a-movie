@@ -29,14 +29,15 @@ export default function ClassList() {
           </tr>
         </thead>
         <tbody>
-          {classList.map((classKey, index) => (
+          {
+          classList.map((classKey, index) => (
             <tr key={index}>
               <td>{classKey.name}</td>
               {
-                <td className='td-center'>R${`${classKey.value},00`}</td>
+                <td className='td-center'>R${`${classKey.classValue},00`}</td>
               }
 
-              <td className='td-center'>{classKey.deadline} dias</td>
+              <td className='td-center'>{classKey.deadline||0} dias</td>
               <td className='button-td-div'>
                 <button
                   id='edit-actor'
@@ -54,7 +55,8 @@ export default function ClassList() {
                 </button>
               </td>
             </tr>
-          ))}
+          ))
+          }
         </tbody>
       </table>
 
