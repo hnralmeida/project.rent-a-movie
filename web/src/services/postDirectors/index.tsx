@@ -1,15 +1,14 @@
+import api from "../api";
+
 export default function postDirectors(directorName: any): Promise<any> {
 
     return new Promise((resolve) => {
         resolve(directorName + ' postDirectors concluído')
-        
-        // fetch("/api/actors", {
-        //     method: "POST",
-        //     headers: {
-        //         "content-type": "application/json",
-        //     },
-        // }).then((res) => {
-        //     resolve(res.json())
-        // });
+
+        return new Promise((resolve, reject) => {
+            api.post("/api/diretor", { name: directorName }).then((res: any) => {
+                resolve(res.data)
+            });
+        })
     })
 }

@@ -33,7 +33,7 @@ export default function ClassList() {
             <tr key={index}>
               <td>{classKey.name}</td>
               {
-                <td className='td-center'>R${classKey.value.includes(",00") ? classKey.value : `${classKey.value},00`}</td>
+                <td className='td-center'>R${`${classKey.value},00`}</td>
               }
 
               <td className='td-center'>{classKey.deadline} dias</td>

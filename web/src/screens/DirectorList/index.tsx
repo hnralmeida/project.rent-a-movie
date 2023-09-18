@@ -28,21 +28,21 @@ export default function DirectorList() {
           </tr>
         </thead>
         <tbody>
-          {directorsList.map((ator, index) => (
+          {directorsList.map((director, index) => (
             <tr key={index}>
-              <td>{ator.nome}</td>
+              <td>{director.name}</td>
               <td className='button-td-div'>
                 <button
                   id='edit-actor'
                   className="button-td-left"
-                  onClick={()=> navigate('add', { state: { actorProps: ator } })}
+                  onClick={()=> navigate('add', { state: { actorProps: director } })}
                 >
                   Editar
                 </button>
                 <button
                   id='delete-actor'
                   className="button-td-right"
-                  onClick={()=> deleteDirectors(ator.id)}
+                  onClick={()=> deleteDirectors(director.id)}
                 >
                   Excluir
                 </button>
