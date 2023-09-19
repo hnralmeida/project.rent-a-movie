@@ -9,7 +9,7 @@ export function Home() {
     return (
         <div className="App">
             <body className="App-content">
-                <img src={logo} className="App-logo" alt="logo" />
+                <img src={logo} className="App-building" alt="logo" />
             </body>
         </div>
     );

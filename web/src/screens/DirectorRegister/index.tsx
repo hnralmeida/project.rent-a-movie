@@ -6,7 +6,7 @@ import postDirectors from '../../services/postDirectors';
 export default function DirectorRegister() {
 
     const [directorName, setDirectorName] = React.useState('');
-    const [directorProps, detDirectorProps] = React.useState<any>(null);
+    const [directorProps, setDirectorProps] = React.useState<any>(null);
     const navigate = useNavigate();
     const params = useLocation();
 
@@ -17,7 +17,7 @@ export default function DirectorRegister() {
                 navigate('/diretores');
             })
             :
-            postDirectors(directorName).then((data) => {
+            postDirectors(directorName, directorProps.id).then((data) => {
                 alert(data + " Cadastrado com sucesso!");
                 navigate('/diretores');
             })
@@ -28,6 +28,13 @@ export default function DirectorRegister() {
         setDirectorName(event.target.value);
     }
 
+    React.useEffect(() => {
+        params.state ? (
+            setDirectorName(params.state.DirectorProps.name),
+            setDirectorProps(params.state.DirectorProps)
+        ) : null;
+    }, [params]);
+    
     return (
         <div className="App-content">
             <div className="row-content">

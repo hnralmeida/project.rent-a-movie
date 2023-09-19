@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 // componentes
-import { TopBar } from '../components/sidebar';
+import { MenuBar } from '../components/menuBar';
 
 // Páginas
 import { Home } from '../screens/Home';
@@ -51,7 +51,7 @@ export function StackRoutes() {
   return (
     <>
       <div className="App">
-        <TopBar />
+        <MenuBar />
 
         <div className="App-pages">
           <Routes>
