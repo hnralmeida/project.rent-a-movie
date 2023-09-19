@@ -5,6 +5,8 @@ import com.example.backend.Models.Type;
 import com.example.backend.Repository.TypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +28,14 @@ public class TypeService {
     }
 
     public ResponseEntity insert(TypeDTO typeDTO) {
-        ModelMapper mapper = new ModelMapper();
-        Type type = mapper.map(typeDTO, Type.class);
-        repository.save(type);
-        return ResponseEntity.ok().build();
+        if (typeDTO.getName() != null && typeDTO.getReturnDate() != null && typeDTO.getClassValue() != null) {
+            ModelMapper mapper = new ModelMapper();
+            Type type = mapper.map(typeDTO, Type.class);
+            repository.save(type);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error: No Content on body");
     }
 
     public ResponseEntity<TypeDTO> update(Long id, TypeDTO typeDTO) {

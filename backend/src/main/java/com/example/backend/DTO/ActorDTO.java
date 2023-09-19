@@ -6,5 +6,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ActorDTO {
+    private Long id;
     private String name;
 }

@@ -35,8 +35,9 @@ public class ActorService {
         return ResponseEntity.ok(mapper.map(repository.findById(id), ActorDTO.class));
     }
 
+
     public ResponseEntity insert(ActorDTO actorDTO) {
-        if(!actorDTO.getName().isEmpty()) {
+        if (actorDTO.getName() != null) {
             ModelMapper mapper = new ModelMapper();
             Actor actor = mapper.map(actorDTO, Actor.class);
             repository.save(actor);

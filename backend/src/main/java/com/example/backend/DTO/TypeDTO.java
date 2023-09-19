@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class TypeDTO{
+    private Long id;
     private String name;
     private Double classValue;
     private LocalDate returnDate;
