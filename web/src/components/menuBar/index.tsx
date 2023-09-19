@@ -13,9 +13,9 @@ export function MenuBar() {
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = React.useState(false);
 
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
+    // const toggleMenu = () => {
+    //     setMenuOpen(!menuOpen);
+    // };
 
     return (
         <>
@@ -25,11 +25,11 @@ export function MenuBar() {
                 </Link>
             </div>
 
-            <button className="toggle-menu" onClick={toggleMenu}>
+            {/* <button className="toggle-menu" onClick={toggleMenu}>
                 {menuOpen ? 'Fechar Menu' : 'Abrir Menu'}
-            </button>
+            </button> */}
 
-            <div className={`sidebar ${menuOpen ? 'open' : ''}`}>
+            <div className={`menubar ${menuOpen ? 'open' : ''}`}>
 
                 {/* Home */}
                 <MenuItem
