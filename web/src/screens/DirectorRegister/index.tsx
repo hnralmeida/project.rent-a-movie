@@ -17,7 +17,7 @@ export default function DirectorRegister() {
                 navigate('/diretores');
             })
             :
-            postDirectors(directorName, directorProps.id).then((data) => {
+            postDirectors(directorName).then((data) => {
                 alert(data + " Cadastrado com sucesso!");
                 navigate('/diretores');
             })
