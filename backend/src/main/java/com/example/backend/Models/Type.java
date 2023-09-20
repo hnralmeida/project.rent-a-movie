@@ -25,10 +25,9 @@ public class Type {
 
     private Double classValue;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate returnDate;
+    private Long returnDate;
 
-    public Type(String name, Double classValue, LocalDate returnDatedate) {
+    public Type(String name, Double classValue, Long returnDatedate) {
         this.name = name;
         this.classValue = classValue;
         this.returnDate = returnDatedate;
