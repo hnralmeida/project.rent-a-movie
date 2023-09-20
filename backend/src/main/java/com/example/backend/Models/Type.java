@@ -25,7 +25,7 @@ public class Type {
 
     private Double classValue;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate returnDate;
 
     public Type(String name, Double classValue, LocalDate returnDatedate) {
