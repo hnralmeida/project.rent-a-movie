@@ -1,15 +1,13 @@
+import api from "../api";
+
 export default function deleteDirectors(idDirector: any): Promise<any> {
 
     return new Promise((resolve) => {
-        resolve('delete ' + idDirector)
-        
-        // fetch("/api/actors", {
-        //     method: "GET",
-        //     headers: {
-        //         "content-type": "application/json",
-        //     },
-        // }).then((res) => {
-        //     resolve(res.json())
-        // });
+
+        api.delete("/api/diretor/" + idDirector).then((res: any) => {
+            console.log(res);
+            resolve(res.data)
+        });
     })
+
 }

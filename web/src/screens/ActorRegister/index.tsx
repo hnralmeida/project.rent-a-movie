@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import postActors from '../../services/postActors';
 import updateActors from '../../services/updateActors';
+import { Link } from 'react-router-dom';
 
 
 export default function ActorRegister() {
@@ -15,16 +16,15 @@ export default function ActorRegister() {
         actorProps ? 
         updateActors(actorName, actorProps.id).then((data)=>{
             alert(data + " Atualizado com sucesso!");
-            navigate('/atores');
+        }).catch((error: any) => {
+            alert(error.message + " falha!");
         })
         :
         postActors(actorName).then((data)=>{
             alert(data + " Cadastrado com sucesso!");
-            navigate('/atores');
         }).catch((error)=>{
             alert(error.message + " falha!");
         });
-
     }
 
     function handleInputChange(event: any) {
@@ -40,7 +40,7 @@ export default function ActorRegister() {
 
     return (
         <div className="App-content">
-            <div className="row-content">
+            <div className="column-content">
                 <button
                     className='back-button'
                     onClick={() => navigate('/atores')}
@@ -48,12 +48,12 @@ export default function ActorRegister() {
                     Voltar
                 </button>
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    <div className='form-div'>
                         <label>Nome:</label>
                         <input
                             className="input-space"
                             type="text"
-                            name="nome"
+                            name="name"
                             value={actorName}
                             onChange={handleInputChange}
                         />

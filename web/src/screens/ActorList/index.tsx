@@ -41,7 +41,9 @@ export default function ActorList() {
                 <button
                   id='delete-actor'
                   className="button-td-right"
-                  onClick={() => deleteActors(ator.id)}
+                  onClick={() => {
+                    deleteActors(ator.id)
+                  }}
                 >
                   Excluir
                 </button>

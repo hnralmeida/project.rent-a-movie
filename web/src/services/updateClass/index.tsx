@@ -1,15 +1,25 @@
-export default function updateClass(className: any, classValue: any, classDeadline: any, classId: number): Promise<any> {
+import api from "../api";
 
-    return new Promise((resolve) => {
-        resolve(className + 'updateClass concluído')
-        
-        // fetch("/api/class", {
-        //     method: "PUT",
-        //     headers: {
-        //         "content-type": "application/json",
-        //     },
-        // }).then((res) => {
-        //     resolve(res.json())
-        // });
+export default function updateClass(className: any, classValue: any, classReturn: any, classId: number): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+        console.log("Update class: " + className + " " + classId);
+
+        api.put("/api/classe/" + classId, 
+        { 
+            id: classId,
+            name: className,
+            classValue: classValue, 
+            returnDate: classReturn
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((res: any) => {
+            resolve(res.data)
+        }).catch((error: any) => {
+            reject(error)
+        });
     })
 }

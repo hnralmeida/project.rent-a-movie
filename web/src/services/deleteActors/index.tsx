@@ -1,15 +1,12 @@
+import api from "../api";
+
 export default function deleteActors(idActor: any): Promise<any> {
 
     return new Promise((resolve) => {
-        resolve('delete ' + idActor)
-        
-        // fetch("/api/actors", {
-        //     method: "GET",
-        //     headers: {
-        //         "content-type": "application/json",
-        //     },
-        // }).then((res) => {
-        //     resolve(res.json())
-        // });
+        api.delete("/api/ator/" + idActor).then((res: any) => {
+            console.log(res);
+            resolve(res.data);
+        });
     })
+
 }

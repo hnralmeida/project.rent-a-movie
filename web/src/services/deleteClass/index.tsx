@@ -1,15 +1,12 @@
+import api from "../api";
+
 export default function deleteClass(idClass: any): Promise<any> {
 
     return new Promise((resolve) => {
-        resolve('delete ' + idClass)
-        
-        // fetch("/api/class", {
-        //     method: "DELETE",
-        //     headers: {
-        //         "content-type": "application/json",
-        //     },
-        // }).then((res) => {
-        //     resolve(res.json())
-        // });
+
+        api.delete("/api/classe/" + idClass).then((res: any) => {
+            console.log(res);
+            resolve(res.data)
+        });
     })
 }
