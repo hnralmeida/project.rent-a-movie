@@ -14,12 +14,12 @@ export default function DirectorRegister() {
         directorProps ?
             updateDirector(directorName, directorProps.id).then((data) => {
                 alert(data + " Atualizado com sucesso!");
-                navigate('/diretores');
+                navigate(-1)
             })
             :
             postDirectors(directorName).then((data) => {
                 alert(data + " Cadastrado com sucesso!");
-                navigate('/diretores');
+                navigate(-1)
             })
 
     }

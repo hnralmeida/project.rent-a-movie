@@ -16,15 +16,15 @@ export default function ClassRegister() {
     function handleSubmit() {
         classProps ?
             updateClass(name, value, returnDate, classProps.id).then((data) => {
+                navigate(-1)
                 alert(data + " Atualizado com sucesso!");
-                navigate('/filmes');
             }).catch((error) => {
                 alert(error);
             })
             :
             postClass(name, value, returnDate).then((data) => {
+                navigate(-1)
                 alert(data + " Cadastrado com sucesso!");
-                navigate('/filmes');
             }).catch((error) => {
                 alert(error);
             });
@@ -45,7 +45,7 @@ export default function ClassRegister() {
     React.useEffect(() => {
         params.state ? (
             setName(params.state.classProps.name),
-            setValue(params.state.classProps.value),
+            setValue(params.state.classProps.classValue),
             setreturnDate(params.state.classProps.returnDate),
             setClassProps(params.state.classProps)
         ) : null;

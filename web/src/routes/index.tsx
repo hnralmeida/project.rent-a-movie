@@ -18,16 +18,17 @@ import { MenuBar } from '../components/menuBar';
 // Páginas
 import { Home } from '../screens/Home';
 import ErrorPage from '../screens/ErrorPage';
-import Actor from '../screens/Actor';
 import ActorList from '../screens/ActorList';
 import ActorRegister from '../screens/ActorRegister';
 import ClassList from '../screens/ClassList';
-import Class from '../screens/Class';
 import DirectorList from '../screens/DirectorList';
-import Director from '../screens/Director';
 import { Link } from 'react-router-dom';
 import ClassRegister from '../screens/ClassRegister';
 import DirectorRegister from '../screens/DirectorRegister';
+import TitleList from '../screens/TitleList';
+import TitleRegister from '../screens/TitleRegister';
+import ItemList from '../screens/ItenList';
+import ItemRegister from '../screens/ItenRegister';
 
 export type TabStackParamsList = {
   Home: undefined,
@@ -51,7 +52,9 @@ export function StackRoutes() {
   return (
     <>
       <div className="App">
-        <MenuBar />
+        <div className='App-Header'>
+          <MenuBar />
+        </div>
 
         <div className="App-pages">
           <Routes>
@@ -60,16 +63,11 @@ export function StackRoutes() {
               element={<Home />}
               errorElement={<ErrorBoundary />}
             />
-            
+
             {/* Atores  */}
             <Route
               path="/atores"
               element={<ActorList />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/atores/:actorId"
-              element={<Actor />}
               errorElement={<ErrorBoundary />}
             />
             <Route
@@ -78,20 +76,16 @@ export function StackRoutes() {
               errorElement={<ErrorBoundary />}
             />
 
-            {/* Locação  */}
+            {/* Filmes */}
             <Route
-              path="/filmes"
-              element={<ClassList />}
+              path="/titulos"
+              element={<TitleList />}
               errorElement={<ErrorBoundary />}
             />
+
             <Route
-              path="/filmes/:classId"
-              element={<Class />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/filmes/add"
-              element={<ClassRegister />}
+              path="/titulos/add"
+              element={<TitleRegister />}
               errorElement={<ErrorBoundary />}
             />
 
@@ -102,13 +96,32 @@ export function StackRoutes() {
               errorElement={<ErrorBoundary />}
             />
             <Route
-              path="/diretores/:directorId"
-              element={<Director />}
+              path="/diretores/add"
+              element={<DirectorRegister />}
+              errorElement={<ErrorBoundary />}
+            />
+
+            {/* Itens  */}
+            <Route
+              path="/itens"
+              element={<ItemList />}
               errorElement={<ErrorBoundary />}
             />
             <Route
-              path="/diretores/add"
-              element={<DirectorRegister />}
+              path="/itens/add"
+              element={<ItemRegister />}
+              errorElement={<ErrorBoundary />}
+            />
+
+            {/* Classes  */}
+            <Route
+              path="/classes"
+              element={<ClassList />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/classes/add"
+              element={<ClassRegister />}
               errorElement={<ErrorBoundary />}
             />
 

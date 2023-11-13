@@ -3,39 +3,44 @@ import React from 'react';
 
 // Navegação
 import { useNavigate, useRouteError } from "react-router-dom";
-import getDirectors from '../../services/getDirectors';
-import deleteDirectors from '../../services/deleteDirector';
+import getItens from '../../services/getItem';
+import deleteItem from '../../services/deleteItem';
 
-export default function DirectorList() {
+export default function ItemList() {
 
-  const [directorsList, setDirector] = React.useState<any[]>([]);
+  const [itemList, setItem] = React.useState<any[]>([]);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getDirectors().then((response) => {
-      setDirector(response);
+    getItens().then((response) => {
+      setItem(response);
     })
   }, []);
-
 
   return (
     <div className="App-content">
       <table>
         <thead>
           <tr>
-            <th className='th-left'>Nome do Diretor</th>
+            <th className='th-left'>Nome do Título</th>
+            <th className='th-left'>Ano</th>
+            <th className='th-left'>Número de Serie</th>
+            <th className='th-left'>Aquisição</th>
             <th className='th-right'>Ação</th>
           </tr>
         </thead>
         <tbody>
-          {directorsList.map((director, index) => (
+          {itemList.map((title, index) => (
             <tr key={index}>
-              <td>{director.name}</td>
+              <td>{title.name}</td>
+              <td>{title.year}</td>
+              <td>{title.numSerie}</td>
+              <td>{title.dtAquisicao}</td>
               <td className='button-td-div'>
                 <button
                   id='edit-actor'
                   className="button-td-left"
-                  onClick={()=> navigate('add', { state: { DirectorProps: director } })}
+                  onClick={()=> navigate('add', { state: { DirectorProps: title } })}
                 >
                   Editar
                 </button>
@@ -43,7 +48,7 @@ export default function DirectorList() {
                   id='delete-actor'
                   className="button-td-right"
                   onClick={()=> {
-                    deleteDirectors(director.id)
+                    deleteItem(title.id)
                     navigate(0)
                   }}
                 >
@@ -59,7 +64,7 @@ export default function DirectorList() {
         className='add-button'
         onClick={() => navigate('add')}
       >
-        Adicionar Diretor
+        Adicionar Item
       </button>
     </div>
   );

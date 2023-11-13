@@ -22,14 +22,14 @@ export default function ActorList() {
       <table>
         <thead>
           <tr>
-            <th>Nome do Ator</th>
-            <th>Ação</th>
+            <th className='th-left'>Nome do Ator</th>
+            <th className='th-right'>Ação</th>
           </tr>
         </thead>
         <tbody>
           {actorList.map((ator, index) => (
             <tr key={index}>
-              <td>{ator.name}</td>
+              <td className='tableCell'>{ator.name}</td>
               <td className='button-td-div'>
                 <button
                   id='edit-actor'
@@ -43,6 +43,7 @@ export default function ActorList() {
                   className="button-td-right"
                   onClick={() => {
                     deleteActors(ator.id)
+                    navigate(0)
                   }}
                 >
                   Excluir
@@ -54,7 +55,7 @@ export default function ActorList() {
       </table>
 
       <button
-        className='add-actor'
+        className='add-button'
         onClick={() => navigate('add')}
       >
         Adicionar Ator

@@ -55,7 +55,7 @@ export function MenuBar() {
                     menuName='Filmes'
                     className='button-nav'
                     onPress={() => {
-                        navigate("filmes")
+                        navigate("titulos")
                         setMenuOpen(false)
                     }} />
 
@@ -67,6 +67,25 @@ export function MenuBar() {
                         navigate("diretores")
                         setMenuOpen(false)
                     }} />
+
+                {/* Itens */}
+                <MenuItem
+                    menuName='Itens'
+                    className='button-nav'
+                    onPress={() => {
+                        navigate("itens")
+                        setMenuOpen(false)
+                    }} />
+
+                {/* Classes */}
+                <MenuItem
+                    menuName='Classes'
+                    className='button-nav'
+                    onPress={() => {
+                        navigate("classes")
+                        setMenuOpen(false)
+                    }} />
+
             </div>
         </>
     )
