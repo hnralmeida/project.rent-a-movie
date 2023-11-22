@@ -7,5 +7,4 @@ public class TitleDTO {
     private String name;
     private String synopsis;
     private String category;
-    private List<ItemDTO> itemList;
 }

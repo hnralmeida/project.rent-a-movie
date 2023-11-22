@@ -28,18 +28,18 @@ public class ItemController {
     @GetMapping
     public ResponseEntity<List<ItemDTO>> getList() { return service.getList();}
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ItemDTO> findById(@PathVariable Long id) { return service.findById(id);}
 
     @PostMapping
     public ResponseEntity insert(@RequestBody ItemDTO itemDTO) { return service.insert(itemDTO);}
 
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ItemDTO> update(@PathVariable Long  id, @RequestBody ItemDTO itemDTO) {
         return service.update(id, itemDTO);
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         return service.delete(id);
     }
