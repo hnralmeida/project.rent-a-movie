@@ -24,7 +24,7 @@ export default function TitleRegister() {
         }
 
         titleProps ? 
-        updateTitle(title, titleProps.id).then((data)=>{
+        updateTitle(title.nome, title.ano, title.sinopse, title.categoria, titleProps.id).then((data)=>{
             navigate(-1)
             alert((data.name||"Título") + " Atualizado com sucesso!");
         }).catch((error: any) => {
