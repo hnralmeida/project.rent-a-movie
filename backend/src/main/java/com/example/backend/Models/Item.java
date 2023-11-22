@@ -31,7 +31,6 @@ public class Item {
     private String itemType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private Title title;
 
     @OneToMany(fetch = FetchType.LAZY)

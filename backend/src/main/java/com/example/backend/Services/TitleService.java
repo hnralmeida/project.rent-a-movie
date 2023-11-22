@@ -20,7 +20,8 @@ public class TitleService {
 
     public ResponseEntity<List<TitleDTO>> getList() {
         return ResponseEntity.ok(
-                repository.findAll()
+                repository
+                        .findAll()
                         .stream()
                         .map(title -> (mapper.map(title, TitleDTO.class)))
                         .toList());
