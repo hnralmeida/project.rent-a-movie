@@ -5,10 +5,10 @@ export default function postTitle(title: any): Promise<any> {
     return new Promise((resolve, reject) => {
         api.post("/api/title",
             {
-                nome: title.nome,
-                ano: title.ano,
-                sinopse: title.sinopse,
-                categoria: title.categoria
+                name: title.nome,
+                year: title.ano,
+                synopsis: title.sinopse,
+                category: title.categoria
             }
         ).then((res: any) => {
             resolve(res.data)

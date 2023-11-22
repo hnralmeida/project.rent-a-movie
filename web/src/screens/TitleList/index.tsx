@@ -30,33 +30,35 @@ export default function TitleList() {
           </tr>
         </thead>
         <tbody>
-          {titleList.map((title, index) => (
-            <tr key={index}>
-              <td className='tableCell'>{title.nome}</td>
-              <td className='tableCell'>{title.ano}</td>
-              <td className='tableCell'>{title.sinopse}</td>
-              <td className='tableCell'>{title.categoria}</td>
-              <td className='button-td-div'>
-                <button
-                  id='edit-title'
-                  className="button-td-left"
-                  onClick={() => navigate('add', { state: { titleProps: title } })}
-                >
-                  Editar
-                </button>
-                <button
-                  id='delete-title'
-                  className="button-td-right"
-                  onClick={() => {
-                    deleteTitle(title.id)
-                    navigate(0)
-                  }}
-                >
-                  Excluir
-                </button>
-              </td>
-            </tr>
-          ))}
+          {
+            titleList.map((title, index) => (
+              <tr key={index}>
+                <td className='tableCell'>{title.nome}</td>
+                <td className='tableCell'>{title.ano}</td>
+                <td className='tableCell'>{title.sinopse}</td>
+                <td className='tableCell'>{title.categoria}</td>
+                <td className='button-td-div'>
+                  <button
+                    id='edit-title'
+                    className="button-td-left"
+                    onClick={() => navigate('add', { state: { titleProps: title } })}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    id='delete-title'
+                    className="button-td-right"
+                    onClick={() => {
+                      deleteTitle(title.id)
+                      navigate(0)
+                    }}
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
 

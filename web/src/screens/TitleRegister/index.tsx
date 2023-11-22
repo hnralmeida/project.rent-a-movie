@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import postActors from '../../services/postActors';
-import updateActors from '../../services/updateActors';
 import { Link } from 'react-router-dom';
+import updateTitle from '../../services/updateTitle';
+import postTitle from '../../services/postTitle';
 
 
 export default function TitleRegister() {
@@ -16,15 +16,22 @@ export default function TitleRegister() {
     const params = useLocation();
 
     function handleSubmit() {
+        const title = {
+            nome: titleName, 
+            ano: titleYear, 
+            sinopse: titleSinopse, 
+            categoria: titleCategoria
+        }
+
         titleProps ? 
-        updateActors(titleName, titleProps.id).then((data)=>{
+        updateTitle(title, titleProps.id).then((data)=>{
             navigate(-1)
             alert((data.name||"Título") + " Atualizado com sucesso!");
         }).catch((error: any) => {
             alert(error.message + " falha!");
         })
         :
-        postActors(titleName).then((data)=>{
+        postTitle(title).then((data)=>{
             navigate(-1)
             alert((data.name||"Título") + " Cadastrado com sucesso!");
         }).catch((error)=>{
