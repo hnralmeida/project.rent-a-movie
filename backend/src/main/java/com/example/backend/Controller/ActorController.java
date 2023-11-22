@@ -48,7 +48,7 @@ public class ActorController {
         return service.update(id, actorDTO);
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
          return service.delete(id);
     }

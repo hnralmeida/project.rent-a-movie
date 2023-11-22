@@ -29,18 +29,18 @@ public class TitleController {
     @GetMapping
     public ResponseEntity<List<TitleDTO>> getList() { return service.getList();}
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public ResponseEntity<TitleDTO> findById(@PathVariable Long id) { return service.findById(id);}
 
     @PostMapping
     public ResponseEntity insert(@RequestBody TitleDTO titleDTO) { return service.insert(titleDTO);}
 
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public ResponseEntity<TitleDTO> update(@PathVariable Long  id, @RequestBody TitleDTO titleDTO) {
         return service.update(id, titleDTO);
     }
 
-    @DeleteMapping({"/{id}"})
+    @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         return service.delete(id);
     }
