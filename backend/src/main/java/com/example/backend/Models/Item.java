@@ -27,10 +27,11 @@ public class Item {
     @Column(name = "SERIAL_NUMBER", unique = true, nullable = false)
     private Long serialNumber;
 
-    @Column(name = "ITEM_TYPE", unique = true, nullable = false)
+    @Column(name = "ITEM_TYPE", nullable = false)
     private String itemType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TITLE_ID")
     private Title title;
 
     @OneToMany(fetch = FetchType.LAZY)

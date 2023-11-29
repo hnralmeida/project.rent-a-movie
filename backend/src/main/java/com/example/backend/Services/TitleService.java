@@ -7,6 +7,7 @@ import com.example.backend.Models.Title;
 import com.example.backend.Repository.TitleRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,9 @@ import java.util.List;
 @Service
 public class TitleService {
     private final TitleRepository repository;
-    private final ModelMapper mapper = new ModelMapper();
+
+    @Autowired
+    private final ModelMapper mapper;
 
     public ResponseEntity<List<TitleDTO>> getList() {
         return ResponseEntity.ok(

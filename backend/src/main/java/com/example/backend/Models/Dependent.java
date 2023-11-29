@@ -18,30 +18,27 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "LEASE")
-public class Lease {
+@Table(name = "DEPENDENT")
+public class Dependent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
-    @Column(name = "DTA_LOCACAO", nullable = false)
-    private Date dtLease;
+    @Column(name = "SUB_NUMBER", nullable = false)
+    private Long subNumber;
 
-    @Column(name = "DTA_EXPECTED_RETURN", nullable = false)
-    private Date dtExpectedReturn;
+    @Column(name = "NAME", nullable = false)
+    private String name;
 
-    @Column(name = "DTA_ACTUAL_RETURN", nullable = true)
-    private Date dtActualReturn;
+    @Column(name = "BIRTH_DATE")
+    private Date birthDate;
 
-    @Column(name = "AMOUNT_CHARGED", nullable = false)
-    private Double amountCharged;
+    @Column(name = "GENDER", nullable = true)
+    private String gender;
 
-    @Column(name = "FINE_CHARGED", nullable = false)
-    private Double fineCharged;
+    @Column(name = "IS_ACTIVE", nullable = false)
+    private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Client client;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Item item;
 }

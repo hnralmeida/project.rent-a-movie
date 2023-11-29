@@ -40,13 +40,15 @@ public class Title {
     @JoinColumn(table = "ACTOR")
     private List<Actor> actorList;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DIRECTOR_ID")
     private Director director;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TYPE_ID")
     private Type type;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "title")
     private List<Item> itemList;
 
     public Title(String name, String synopsis, String category, List<Actor> actorList, Director director, Type type, List<Item> itemList) {
