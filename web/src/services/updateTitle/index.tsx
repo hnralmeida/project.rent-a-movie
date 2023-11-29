@@ -1,17 +1,19 @@
 import api from "../api";
 
-export default function updateTitle(nome: any, ano: any, sinopse: any, categoria: any, titleId: number): Promise<any> {
+export default function updateTitle(title: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
-        console.log("Update title: " + nome + " " + titleId);
+        console.log("Update title: " + title.nome + " " + title.id);
 
-        api.put("/api/title/" + titleId,
+        api.put("/api/title/" + title.id,
             {
-                id: titleId,
-                nome: nome,
-                ano: ano,
-                sinopse: sinopse,
-                categoria: categoria,
+                name: title.nome,
+                year: title.ano,
+                synopsis: title.sinopse,
+                id_diretor: title.diretor,
+                id_type: title.classe,
+                category: title.categoria,
+                actors: title.atores,
             },
             {
                 headers: {

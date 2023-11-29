@@ -14,6 +14,7 @@ export default function ItemList() {
   React.useEffect(() => {
     getItens().then((response) => {
       setItem(response);
+      console.log(response)
     })
   }, []);
 
@@ -22,25 +23,24 @@ export default function ItemList() {
       <table>
         <thead>
           <tr>
-            <th className='th-left'>Nome do Título</th>
-            <th className='th-left'>Ano</th>
-            <th className='th-left'>Número de Serie</th>
+            <th className='th-left'>Número de Série</th>
+            <th className='th-left'>Tipo</th>
             <th className='th-left'>Aquisição</th>
             <th className='th-right'>Ação</th>
           </tr>
         </thead>
         <tbody>
-          {itemList.map((title, index) => (
+          {itemList.map((item, index) => (
             <tr key={index}>
-              <td>{title.name}</td>
-              <td>{title.year}</td>
-              <td>{title.numSerie}</td>
-              <td>{title.dtAquisicao}</td>
+              
+              <td>{item.serialNumber}</td>
+              <td>{item.itemType}</td>
+              <td>{item.dtAquisicao}</td>
               <td className='button-td-div'>
                 <button
                   id='edit-actor'
                   className="button-td-left"
-                  onClick={()=> navigate('add', { state: { DirectorProps: title } })}
+                  onClick={()=> navigate('add', { state: { itemProps: item } })}
                 >
                   Editar
                 </button>
@@ -48,7 +48,7 @@ export default function ItemList() {
                   id='delete-actor'
                   className="button-td-right"
                   onClick={()=> {
-                    deleteItem(title.id)
+                    deleteItem(item.id)
                     navigate(0)
                   }}
                 >

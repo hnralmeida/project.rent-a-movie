@@ -125,6 +125,30 @@ export function StackRoutes() {
               errorElement={<ErrorBoundary />}
             />
 
+            {/* Clientes  */}
+            <Route
+              path="/clientes"
+              element={<ClassList />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/clientes/add"
+              element={<ClassRegister />}
+              errorElement={<ErrorBoundary />}
+            />
+
+            {/* Locacoes  */}
+            <Route
+              path="/locacoes"
+              element={<ClassList />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/locacoes/add"
+              element={<ClassRegister />}
+              errorElement={<ErrorBoundary />}
+            />
+
           </Routes>
         </div>
       </div>

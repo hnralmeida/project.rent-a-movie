@@ -5,6 +5,9 @@ import React from 'react';
 import { useNavigate, useRouteError } from "react-router-dom";
 import getTitle from '../../services/getTitle';
 import deleteTitle from '../../services/deleteTitle';
+import listTitle from '../../services/listTitle';
+import ModalActors from '../../components/modalActors';
+import ModalText from '../../components/modalText';
 
 export default function TitleList() {
 
@@ -12,7 +15,7 @@ export default function TitleList() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    getTitle().then((response) => {
+    listTitle().then((response) => {
       setTitleList(response);
     })
   }, []);
@@ -25,7 +28,10 @@ export default function TitleList() {
             <th className='th-left'>Nome</th>
             <th className='th-left'>Ano</th>
             <th className='th-left'>Sinopse</th>
+            <th className='th-left'>Diretor</th>
+            <th className='th-left'>Classe</th>
             <th className='th-left'>Categoria</th>
+            <th className='th-left'>Elenco</th>
             <th className='th-right'>Ação</th>
           </tr>
         </thead>
@@ -33,10 +39,34 @@ export default function TitleList() {
           {
             titleList.map((title, index) => (
               <tr key={index}>
-                <td className='tableCell'>{title.nome}</td>
-                <td className='tableCell'>{title.ano}</td>
-                <td className='tableCell'>{title.sinopse}</td>
-                <td className='tableCell'>{title.categoria}</td>
+                <td className='tableCell'>{title.name}</td>
+                <td className='tableCell'>{title.year||"-"}</td>
+                <td className='tableCell'>
+                  <ModalText text={title.synopsis} header={title.name}/>
+                </td>
+                <td className='tableCell'>{title.directorDTO||"?"}</td>
+                <td className='tableCell'>{title.typeDTO||"?"}</td>
+                <td className='tableCell'>{title.category}</td>
+                <td className='tableCell'>
+                  <ModalActors
+                    title_id={title.id}
+                    cast={[
+                      {
+                        id: 1,
+                        name: 'Ator 1'
+                      },
+                      {
+                        id: 2,
+                        name: 'Ator 2'
+                      },
+                      {
+                        id: 3,
+                        name: 'Ator 3'
+                      }
+                    ]
+                    }
+                  />
+                </td>
                 <td className='button-td-div'>
                   <button
                     id='edit-title'
