@@ -3,24 +3,29 @@ package com.example.backend.Services;
 import com.example.backend.DTO.ItemDTO;
 import com.example.backend.Models.Item;
 import com.example.backend.Repository.ItemRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 public class ItemService {
     private final ItemRepository repository;
-    private final ModelMapper mapper = new ModelMapper();
+
+    @Autowired
+    private final ModelMapper mapper;
 
     public ResponseEntity<List<ItemDTO>> getList() {
         return ResponseEntity.ok(
                 repository.findAll()
                         .stream()
-                        .map(item -> (mapper.map(item, ItemDTO.class)))
+                        .map((item) -> (mapper.map(item, ItemDTO.class)))
                         .toList());
     }
 

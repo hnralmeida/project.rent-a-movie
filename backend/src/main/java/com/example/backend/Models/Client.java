@@ -6,6 +6,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -40,26 +41,9 @@ public class Client {
     @Column(name = "IS_ACTIVE", nullable = false)
     private Boolean isActive;
 
-    @Column(name = "CLIENT_TYPE", nullable = false)
-    private Long clientType;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Dependent> dependentList;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Lease> leaseList;
-
-
-    public enum ClientType {
-        MEMBER(1),
-        DEPENDENT(2);
-
-        private Long value;
-
-        ClientType(int value) {
-            this.value = Long.valueOf(value);
-        }
-
-        public Long getValue() {
-            return this.value;
-        }
-
-    };
 }

@@ -5,6 +5,7 @@ import com.example.backend.Models.Actor;
 import com.example.backend.Repository.ActorRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,10 @@ import java.util.List;
 public class ActorService {
     private final ActorRepository repository;
 
+    @Autowired
+    private final ModelMapper mapper;
+
     public ResponseEntity<List<ActorDTO>> getList() {
-        ModelMapper mapper = new ModelMapper();
         return ResponseEntity.ok(
                 repository
                         .findAll()
@@ -27,8 +30,6 @@ public class ActorService {
     }
 
     public ResponseEntity<ActorDTO> findById(Long id) {
-        ModelMapper mapper = new ModelMapper();
-
         if(!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -38,7 +39,6 @@ public class ActorService {
 
     public ResponseEntity insert(ActorDTO actorDTO) {
         if (actorDTO.getName() != null) {
-            ModelMapper mapper = new ModelMapper();
             Actor actor = mapper.map(actorDTO, Actor.class);
             repository.save(actor);
             return ResponseEntity.ok().build();
@@ -48,7 +48,6 @@ public class ActorService {
     }
 
     public ResponseEntity<Actor> update(Long id, ActorDTO actorDTO) {
-        ModelMapper mapper = new ModelMapper();
         Actor actor = mapper.map(repository.findById(id), Actor.class);
         mapper.map(actorDTO, actor);
         repository.save(actor);

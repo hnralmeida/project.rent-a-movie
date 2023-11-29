@@ -5,8 +5,11 @@ import com.example.backend.Models.Director;
 import com.example.backend.Repository.DirectorRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.asm.Advice.Unused;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -15,8 +18,10 @@ import java.util.List;
 public class DirectorService {
     private final DirectorRepository repository;
 
+    @Autowired
+    private final ModelMapper mapper;
+
     public ResponseEntity<List<DirectorDTO>> getList() {
-        ModelMapper mapper = new ModelMapper();
         return ResponseEntity.ok(repository
                 .findAll()
                 .stream()
@@ -25,8 +30,6 @@ public class DirectorService {
     }
 
     public ResponseEntity<DirectorDTO> findById(Long id) {
-        ModelMapper mapper = new ModelMapper();
-
         if(!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -34,7 +37,6 @@ public class DirectorService {
     }
 
     public ResponseEntity insert(DirectorDTO directorDTO) {
-        ModelMapper mapper = new ModelMapper();
         Director director = mapper.map(directorDTO, Director.class);
         repository.save(director);
         return ResponseEntity.ok().build();
@@ -42,7 +44,6 @@ public class DirectorService {
     }
 
     public ResponseEntity<Director> update(Long id, DirectorDTO directorDTO) {
-        ModelMapper mapper = new ModelMapper();
         Director director = mapper.map(repository.findById(id), Director.class);
         mapper.map(directorDTO, director);
         repository.save(director);

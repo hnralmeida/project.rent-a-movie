@@ -5,6 +5,8 @@ import com.example.backend.Models.Client;
 import com.example.backend.Repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner.Mode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,10 @@ import java.util.List;
 public class ClientService {
     private final ClientRepository repository;
 
+    @Autowired
+    private final ModelMapper mapper;
+
     public ResponseEntity<List<ClientDTO>> getList() {
-        ModelMapper mapper = new ModelMapper();
         return ResponseEntity.ok(
                 repository
                         .findAll()
@@ -27,8 +31,6 @@ public class ClientService {
     }
 
     public ResponseEntity<ClientDTO> findById(Long id) {
-        ModelMapper mapper = new ModelMapper();
-
         if(!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -38,7 +40,6 @@ public class ClientService {
 
     public ResponseEntity insert(ClientDTO clientDTO) {
         if (clientDTO.getName() != null) {
-            ModelMapper mapper = new ModelMapper();
             Client client = mapper.map(clientDTO, Client.class);
             repository.save(client);
             return ResponseEntity.ok().build();
@@ -48,7 +49,6 @@ public class ClientService {
     }
 
     public ResponseEntity<Client> update(Long id, ClientDTO clientDTO) {
-        ModelMapper mapper = new ModelMapper();
         Client client = mapper.map(repository.findById(id), Client.class);
         mapper.map(clientDTO, client);
         repository.save(client);
