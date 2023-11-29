@@ -67,4 +67,13 @@ public class DependentService {
         return ResponseEntity.ok(dependent);
     }
 
+    public ResponseEntity delete(Long id) {
+        if(!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        repository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

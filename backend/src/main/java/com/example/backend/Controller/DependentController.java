@@ -1,9 +1,7 @@
 package com.example.backend.Controller;
 
-import com.example.backend.DTO.ClientDTO;
 import com.example.backend.DTO.DependentDTO;
-import com.example.backend.Models.Client;
-import com.example.backend.Services.ClientService;
+import com.example.backend.Models.Dependent;
 import com.example.backend.Services.DependentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -22,31 +20,29 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/client")
-public class ClientController {
-    private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
+@RequestMapping("/api/dependent")
+public class DependentController {
+    private static final Logger logger = LoggerFactory.getLogger(DependentController.class);
 
-    private final ClientService service;
+    private final DependentService service;
 
     @GetMapping
-    public ResponseEntity<List<ClientDTO>> getList() {
+    public ResponseEntity<List<DependentDTO>> getList() {
         return service.getList();
     }
 
     @PostMapping
-    public ResponseEntity insertClient(@RequestBody ClientDTO client) {
-        return service.insert(client);
+    public ResponseEntity insertClient(@RequestBody DependentDTO dependentDTO) {
+        return service.insert(dependentDTO);
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody ClientDTO clientDTO) {
-        return service.update(id, clientDTO);
+    public ResponseEntity<Dependent> update(@PathVariable Long id, @RequestBody DependentDTO dependentDTO) {
+        return service.update(id, dependentDTO);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         return service.delete(id);
     }
-
 }

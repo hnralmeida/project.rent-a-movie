@@ -14,4 +14,6 @@ public class LeaseDTO {
     private Date dtActualReturn;
     private Double amountCharged;
     private Double fineCharged;
+    private Long clientId;
+    private Long typeClient;
 }
