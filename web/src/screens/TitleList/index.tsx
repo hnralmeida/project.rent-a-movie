@@ -16,7 +16,8 @@ export default function TitleList() {
 
   React.useEffect(() => {
     listTitle().then((response) => {
-      setTitleList(response);
+      console.log(response);
+      setTitleList(response as any[]);
     })
   }, []);
 
@@ -37,57 +38,46 @@ export default function TitleList() {
         </thead>
         <tbody>
           {
-            titleList.map((title, index) => (
-              <tr key={index}>
-                <td className='tableCell'>{title.name}</td>
-                <td className='tableCell'>{title.year||"-"}</td>
-                <td className='tableCell'>
-                  <ModalText text={title.synopsis} header={title.name}/>
-                </td>
-                <td className='tableCell'>{title.directorDTO||"?"}</td>
-                <td className='tableCell'>{title.typeDTO||"?"}</td>
-                <td className='tableCell'>{title.category}</td>
-                <td className='tableCell'>
-                  <ModalActors
-                    title_id={title.id}
-                    cast={[
-                      {
-                        id: 1,
-                        name: 'Ator 1'
-                      },
-                      {
-                        id: 2,
-                        name: 'Ator 2'
-                      },
-                      {
-                        id: 3,
-                        name: 'Ator 3'
-                      }
-                    ]
-                    }
-                  />
-                </td>
-                <td className='button-td-div'>
-                  <button
-                    id='edit-title'
-                    className="button-td-left"
-                    onClick={() => navigate('add', { state: { titleProps: title } })}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    id='delete-title'
-                    className="button-td-right"
-                    onClick={() => {
-                      deleteTitle(title.id)
-                      navigate(0)
-                    }}
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            ))
+            titleList ? titleList.map((title, index) => {
+              return (
+                <tr key={index}>
+                  <td className='tableCell'>{title.name}</td>
+                  <td className='tableCell'>{title.year || "-"}</td>
+                  <td className='tableCell'>
+                    <ModalText text={title.synopsis} header={title.name} />
+                  </td>
+                  <td className='tableCell' onError={()=>""}>{title.directorDTO ? title.directorDTO.name : "-"}</td>
+                  <td className='tableCell'>{title.typeDTO ? title.typeDTO.classValue : "-"}</td>
+                  <td className='tableCell'>{title.typeDTO ? title.typeDTO.name : "-"}</td>
+                  <td className='tableCell'>
+                    <ModalActors
+                      title_id={title.id}
+                      cast={title.actorDTOList}
+                    />
+                  </td>
+                  <td className='button-td-div'>
+                    <button
+                      id='edit-title'
+                      className="button-td-left"
+                      onClick={() => navigate('add', { state: { titleProps: title } })}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      id='delete-title'
+                      className="button-td-right"
+                      onClick={() => {
+                        deleteTitle(title.id)
+                        navigate(0)
+                      }}
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              )
+            })
+              : null
           }
         </tbody>
       </table>

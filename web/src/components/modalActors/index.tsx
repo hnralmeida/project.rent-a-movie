@@ -35,13 +35,16 @@ export default function ModalActors({ title_id, cast }: ModalActorsProps) {
                         <div>
                             <p>Elenco: </p>
                             <ul>
-                                {cast.map((actor: any) => (
+                                {cast ? cast.map((actor) => (
                                     <div key={actor.id}>
                                         <li>
                                             <p>{actor.name}</p>
                                         </li>
                                     </div>
-                                ))}
+                                ))
+                                    :
+                                    null
+                                }
                             </ul>
 
                         </div>

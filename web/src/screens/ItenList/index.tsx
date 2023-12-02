@@ -24,7 +24,8 @@ export default function ItemList() {
         <thead>
           <tr>
             <th className='th-left'>Número de Série</th>
-            <th className='th-left'>Tipo</th>
+            <th className='th-left'>Tipo de Item</th>
+            <th className='th-left'>Filme</th>
             <th className='th-left'>Aquisição</th>
             <th className='th-right'>Ação</th>
           </tr>
@@ -32,9 +33,9 @@ export default function ItemList() {
         <tbody>
           {itemList.map((item, index) => (
             <tr key={index}>
-              
               <td>{item.serialNumber}</td>
               <td>{item.itemType}</td>
+              <td className='tableCell' onError={()=>""}>{item.titleDTO ? item.titleDTO.name : "-"}</td>
               <td>{item.dtAquisicao}</td>
               <td className='button-td-div'>
                 <button
