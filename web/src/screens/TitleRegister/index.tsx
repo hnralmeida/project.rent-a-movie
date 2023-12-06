@@ -27,16 +27,15 @@ export default function TitleRegister() {
     const [titleActors, setTitleActors] = React.useState<any[]>([]);
 
     // Informações do Título
-    const [titleProps, setTitleProps] = React.useState<Title>(
-    );
+    const [titleProps, setTitleProps] = React.useState<Title>();
 
     // Navegação
     const navigate = useNavigate();
     const params = useLocation();
 
-    function handleSubmit() {
+    function handleSubmitForm() {
         const title = {
-            title: titleProps?.id,
+            id: titleProps ? titleProps.id : null,          
             nome: titleName,
             ano: titleYear,
             sinopse: titleSinopse,
@@ -110,7 +109,7 @@ export default function TitleRegister() {
                 >
                     Voltar
                 </button>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmitForm}>
                     <div className='form-div'>
                         <label>Nome:</label>
                         <input
