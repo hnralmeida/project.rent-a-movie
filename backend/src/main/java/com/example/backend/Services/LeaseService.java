@@ -1,9 +1,12 @@
 package com.example.backend.Services;
 
 import java.util.List;
+import java.util.UUID;
 
+import com.example.backend.Models.Client;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -34,51 +37,43 @@ public class LeaseService {
                         .toList());
     }
 
-    public ResponseEntity<LeaseDTO> findById(Long id) {
-        if (!repository.existsById(id)) {
+    public ResponseEntity<LeaseDTO> findById(UUID uuid) {
+        if (!repository.existsById(uuid)) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(mapper.map(repository.findById(id), LeaseDTO.class));
+        return ResponseEntity.ok(mapper.map(repository.findById(uuid), LeaseDTO.class));
     }
 
-/*
+
     public ResponseEntity insert(LeaseDTO leaseDTO) {
-        if(leaseDTO.getClientId() == 1L) {
-            if(!clientRepository.existsById(leaseDTO.getClientId())) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error: ClientID doesn't exist");
+        if(!clientRepository.existsById(leaseDTO.getClient().getId())) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error: Client doesn't exist");
             }
 
-            if(repository.findBy())
+        Client client = clientRepository.findById(leaseDTO.getClient().getId()).get();
 
-            //Client client = clientRepository.findById(leaseDTO.getClientId()).get();
-
-
+        for (Lease lease : client.getLeaseList()) {
+            if(!lease.getIsPaid()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Already have a lease not paid");
         }
 
-
-        if (leaseDTO != null) {
-            Lease lease = mapper.map(leaseDTO, Lease.class);
-            repository.save(lease);
-            return ResponseEntity.ok().build();
+        Lease lease = mapper.map(leaseDTO, Lease.class);
+        repository.save(lease);
+        return ResponseEntity.ok().build();
         }
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error: No Content on body.");
-    }
- */
-
-    public ResponseEntity<LeaseDTO> update(Long id, LeaseDTO leaseDTO) {
-        Lease lease = mapper.map(repository.findById(id), Lease.class);
+    public ResponseEntity<Lease> update(UUID uuid, LeaseDTO leaseDTO) {
+        Lease lease = mapper.map(repository.findById(uuid), Lease.class);
         mapper.map(leaseDTO, lease);
         repository.save(lease);
-        return ResponseEntity.ok(leaseDTO);
+        return ResponseEntity.ok(lease);
     }
 
-    public ResponseEntity delete(Long id) {
-        if(!repository.existsById(id)) {
+    public ResponseEntity delete(UUID uuid) {
+        if(!repository.existsById(uuid)) {
             return ResponseEntity.notFound().build();
         }
 
-        repository.deleteById(id);
+        repository.deleteById(uuid);
         return ResponseEntity.ok().build();
     }
 }

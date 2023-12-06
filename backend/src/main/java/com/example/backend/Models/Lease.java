@@ -1,6 +1,7 @@
 package com.example.backend.Models;
 
 import java.util.Date;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,9 +21,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "LEASE")
 public class Lease {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Id
-    private Long id;
+    private UUID uuid;
 
     @Column(name = "DTA_LOCACAO", nullable = false)
     private Date dtLease;
@@ -39,9 +40,18 @@ public class Lease {
     @Column(name = "FINE_CHARGED", nullable = false)
     private Double fineCharged;
 
+    @Column(name = "IS_PAID", nullable = false)
+    private Boolean isPaid;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Client client;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
 }
+
+/*
+INSERT INTO LEASE(ID, DTA_LOCACAO, DTA_EXPECTED_RETURN, DTA_ACTUAL_RETURN, AMOUNT_CHARGED, FINE_CHARGED, IS_PAID) VALUES ('b35c602c-1ae8-4d97-aeba-0d5213601576', CURRENT_DATE, CURRENT_DATE, NULL, 0, 0, FALSE);
+INSERT INTO LEASE(ID, DTA_LOCACAO, DTA_EXPECTED_RETURN, DTA_ACTUAL_RETURN, AMOUNT_CHARGED, FINE_CHARGED, IS_PAID) VALUES (CURRENT_DATE, CURRENT_DATE, NULL, 10, 0, TRUE);
+INSERT INTO LEASE(ID, DTA_LOCACAO, DTA_EXPECTED_RETURN, DTA_ACTUAL_RETURN, AMOUNT_CHARGED, FINE_CHARGED, IS_PAID) VALUES (CURRENT_DATE, CURRENT_DATE, NULL, 20, 10, TRUE);
+*/
