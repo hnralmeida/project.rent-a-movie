@@ -1,26 +1,32 @@
 package com.example.backend.Services;
 
-import com.example.backend.DTO.DependentDTO;
-import com.example.backend.Models.Client;
-import com.example.backend.Models.Dependent;
-import com.example.backend.Repository.ClientRepository;
-import com.example.backend.Repository.DependentRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Optional;
+
+import com.example.backend.DTO.ClientDTO;
+import com.example.backend.DTO.PartnerDTO;
+import com.example.backend.Models.Partner;
+import com.example.backend.Repository.PartnerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.example.backend.DTO.DependentDTO;
+import com.example.backend.Models.Dependent;
+import com.example.backend.Repository.ClientRepository;
+import com.example.backend.Repository.DependentRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class DependentService {
     private final DependentRepository repository;
-
+    private final PartnerRepository partnerRepository;
     private final ClientRepository clientRepository;
+
 
     @Autowired
     private final ModelMapper mapper;
@@ -29,6 +35,14 @@ public class DependentService {
         return ResponseEntity.ok(
                 repository
                         .findAll()
+                        .stream()
+                        .map(dependent -> (mapper.map(dependent, DependentDTO.class)))
+                        .toList());
+    }
+
+    public ResponseEntity<List<DependentDTO>> getListActive() {
+        return ResponseEntity.ok(
+                repository.getDependentAtivos()
                         .stream()
                         .map(dependent -> (mapper.map(dependent, DependentDTO.class)))
                         .toList());
@@ -44,19 +58,31 @@ public class DependentService {
 
     public ResponseEntity insert(DependentDTO dependentDTO) {
 
-        if(!clientRepository.existsById(dependentDTO.getClientId())) {
+        PartnerDTO partner = dependentDTO.getPartner();
+
+        if(!partnerRepository.existsById(partner.getId())) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Error: ClientID doesn't exist");
         }
 
-        Optional<Client> client = clientRepository.findById(dependentDTO.getClientId());
-        Long qtdDependents = client.get().getDependentList().stream().count();
-        if(qtdDependents > 3) {
+        Optional<Partner> client = partnerRepository.findById(partner.getId());
+
+        Long qtdDependents = 0L;
+
+        List<Dependent> dependentList = client.get().getDependentList();
+        for (Dependent dependent : dependentList) {
+            if(dependent.getIsActive()) qtdDependents += 1L;
+        }
+
+        if(qtdDependents >= 3) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Dependent List already full");
         }
 
         Dependent dependent = mapper.map(dependentDTO, Dependent.class);
-        dependent.setClient(clientRepository.findById(dependentDTO.getClientId()).get());
+        Partner ptn = partnerRepository.findById(partner.getId()).get();
+        ptn.getDependentList().add(dependent);
+        dependent.setPartner(ptn);
         repository.save(dependent);
+
         return ResponseEntity.ok().build();
     }
 
@@ -73,6 +99,7 @@ public class DependentService {
         }
 
         repository.deleteById(id);
+
         return ResponseEntity.ok().build();
     }
 

@@ -1,11 +1,7 @@
 package com.example.backend.Controller;
 
-import com.example.backend.DTO.ClientDTO;
-import com.example.backend.DTO.DependentDTO;
-import com.example.backend.Models.Client;
-import com.example.backend.Services.ClientService;
-import com.example.backend.Services.DependentService;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.example.backend.DTO.ClientDTO;
+import com.example.backend.Models.Client;
+import com.example.backend.Services.ClientService;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
@@ -38,6 +38,10 @@ public class ClientController {
         return service.insert(client);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
+        return service.findById(id);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody ClientDTO clientDTO) {

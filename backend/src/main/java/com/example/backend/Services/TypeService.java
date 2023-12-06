@@ -1,17 +1,18 @@
 package com.example.backend.Services;
 
-import com.example.backend.DTO.TypeDTO;
-import com.example.backend.Models.Type;
-import com.example.backend.Repository.TypeRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.backend.DTO.TypeDTO;
+import com.example.backend.Models.Type;
+import com.example.backend.Repository.TypeRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service

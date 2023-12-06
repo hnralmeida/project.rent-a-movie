@@ -1,10 +1,11 @@
 package com.example.backend.Services.Validators;
 
-import com.example.backend.DTO.ActorDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import com.example.backend.DTO.ActorDTO;
 
 @Component
 public class ActorDtoValidator implements Validator {
