@@ -8,7 +8,9 @@ export default function postTitle(title: any): Promise<any> {
                 name: title.nome,
                 year: title.ano,
                 synopsis: title.sinopse,
-                category: title.categoria
+                category: title.categoria,
+                directorDTO: title.diretor,
+                typeDTO: title.classe
             }
         ).then((res: any) => {
             resolve(res.data)
