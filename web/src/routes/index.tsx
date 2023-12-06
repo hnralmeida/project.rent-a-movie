@@ -29,6 +29,10 @@ import TitleList from '../screens/TitleList';
 import TitleRegister from '../screens/TitleRegister';
 import ItemList from '../screens/ItenList';
 import ItemRegister from '../screens/ItenRegister';
+import ClientList from '../screens/ClientList';
+import ClientRegister from '../screens/ClientRegister';
+import RentList from '../screens/RentList';
+import RentRegister from '../screens/RentRegister';
 
 export type TabStackParamsList = {
   Home: undefined,
@@ -122,6 +126,30 @@ export function StackRoutes() {
             <Route
               path="/classes/add"
               element={<ClassRegister />}
+              errorElement={<ErrorBoundary />}
+            />
+
+            {/* Clientes  */}
+            <Route
+              path="/clientes"
+              element={<ClientList />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/clientes/add"
+              element={<ClientRegister />}
+              errorElement={<ErrorBoundary />}
+            />
+
+            {/* Locacoes  */}
+            <Route
+              path="/locacoes"
+              element={<RentList />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/locacoes/add"
+              element={<RentRegister />}
               errorElement={<ErrorBoundary />}
             />
 

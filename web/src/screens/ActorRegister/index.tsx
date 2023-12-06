@@ -13,20 +13,20 @@ export default function ActorRegister() {
     const params = useLocation();
 
     function handleSubmit() {
-        actorProps ? 
-        updateActors(actorName, actorProps.id).then((data)=>{
-            navigate(-1)
-            alert((data.name||"Ator") + " Atualizado com sucesso!");
-        }).catch((error: any) => {
-            alert(error.message + " falha!");
-        })
-        :
-        postActors(actorName).then((data)=>{
-            navigate(-1)
-            alert((data.name||"Ator") + " Cadastrado com sucesso!");
-        }).catch((error)=>{
-            alert(error.message + " falha!");
-        });
+        actorProps ?
+            updateActors(actorName, actorProps.id).then((data) => {
+                alert((data.name || "Ator") + " Atualizado com sucesso!");
+            }).catch((error: any) => {
+                alert(error.message + " falha!");
+            })
+            :
+            postActors(actorName).then((data) => {
+                alert((data.name || "Ator") + " Cadastrado com sucesso!");
+            }).catch((error) => {
+                alert(error.message + " falha!");
+            });
+        navigate("/atores")
+
     }
 
     function handleInputChange(event: any) {

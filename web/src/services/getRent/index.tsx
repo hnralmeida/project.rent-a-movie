@@ -1,9 +1,10 @@
 import api from "../api";
 
-export default function getTitle(id: number): Promise<any> {
+export default function getRent(id: any): Promise<any> {
 
     return new Promise((resolve) => {
-        api.get("/api/title/"+id).then((res:any) => {
+        
+        api.get("/api/client/" + id).then((res:any) => {
             console.log(res);
             resolve(res.data)
         });

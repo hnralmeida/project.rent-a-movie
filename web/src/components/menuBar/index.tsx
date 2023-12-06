@@ -85,7 +85,22 @@ export function MenuBar() {
                         navigate("classes")
                         setMenuOpen(false)
                     }} />
-
+                {/* Locacoes */}
+                <MenuItem
+                    menuName='Locações'
+                    className='button-nav'
+                    onPress={() => {
+                        navigate("locacoes")
+                        setMenuOpen(false)
+                    }} />
+                {/* Clientes */}
+                <MenuItem
+                    menuName='Clientes'
+                    className='button-nav'
+                    onPress={() => {
+                        navigate("clientes")
+                        setMenuOpen(false)
+                    }} />
             </div>
         </>
     )

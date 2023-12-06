@@ -1,16 +1,16 @@
 import api from "../api";
 
-export default function updateItem(numSerie: any, dtAquisicao: any, tipoItem: any, itemId: number): Promise<any> {
+export default function updateItem(item: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
-        console.log("Update item: " + numSerie + " " + itemId);
+        console.log("Update item: " + item.numSerie + " " + item.id);
 
-        api.put("/api/item/" + itemId,
+        api.put("/api/item/" + item.id,
             {
-                id: itemId,
-                numSerie: numSerie,
-                dtAquisicao: dtAquisicao,
-                tipoItem: tipoItem
+                id: item.id,
+                serialNumber: item.numSerie,
+                dtAquisicao: item.dtAquisicao,
+                itemType: item.tipoItem,
             },
             {
                 headers: {
