@@ -1,17 +1,17 @@
 package com.example.backend.Services;
 
-import com.example.backend.DTO.ItemDTO;
-import com.example.backend.DTO.TitleDTO;
-import com.example.backend.Models.Item;
-import com.example.backend.Models.Title;
-import com.example.backend.Repository.TitleRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.backend.DTO.TitleDTO;
+import com.example.backend.Models.Title;
+import com.example.backend.Repository.TitleRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service

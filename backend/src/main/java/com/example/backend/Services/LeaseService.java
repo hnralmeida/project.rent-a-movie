@@ -1,21 +1,19 @@
 package com.example.backend.Services;
 
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
 import com.example.backend.DTO.LeaseDTO;
-import com.example.backend.Models.Client;
 import com.example.backend.Models.Lease;
 import com.example.backend.Repository.ClientRepository;
 import com.example.backend.Repository.DependentRepository;
 import com.example.backend.Repository.LeaseRepository;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service

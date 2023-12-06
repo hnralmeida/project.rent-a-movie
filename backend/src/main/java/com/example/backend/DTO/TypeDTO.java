@@ -1,10 +1,9 @@
 package com.example.backend.DTO;
 
+import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

@@ -1,8 +1,9 @@
 package com.example.backend.DTO;
 
-import lombok.Data;
-
 import java.util.Date;
+import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class ClientDTO {
@@ -12,4 +13,5 @@ public class ClientDTO {
     private Date birthDate;
     private String gender;
     private Boolean isActive;
+    private List<DependentDTO> dependentDTOList;
 }

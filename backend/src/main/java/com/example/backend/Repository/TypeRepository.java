@@ -1,7 +1,8 @@
 package com.example.backend.Repository;
 
-import com.example.backend.Models.Type;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.backend.Models.Type;
 
 public interface TypeRepository extends JpaRepository<Type, Long> {
 }

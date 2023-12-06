@@ -1,9 +1,7 @@
 package com.example.backend.Controller;
 
-import com.example.backend.DTO.DirectorDTO;
-import com.example.backend.Models.Director;
-import com.example.backend.Services.DirectorService;
-import lombok.AllArgsConstructor;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.example.backend.DTO.DirectorDTO;
+import com.example.backend.Models.Director;
+import com.example.backend.Services.DirectorService;
+
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
