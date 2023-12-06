@@ -194,9 +194,29 @@ td {
 
 .form-div {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
-  padding: 0 32px;
+  padding: 8px 32px;
+}
+
+.form-div input {
+  height: 24px;
+} 
+
+.form-div label, .input-center label {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 8px;
+}
+
+.form-div select {
+  height: 24px;
+} 
+
+select, input {
+  width: 100%;
 }
 
 .submit-button {
@@ -226,6 +246,18 @@ td {
 
 .input-space {
   margin: 0px 8px;
+}
+
+.form-checkbox {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-checkbox input {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .modal {

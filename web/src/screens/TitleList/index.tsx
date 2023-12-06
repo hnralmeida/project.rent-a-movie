@@ -47,8 +47,8 @@ export default function TitleList() {
                     <ModalText text={title.synopsis} header={title.name} />
                   </td>
                   <td className='tableCell' onError={()=>""}>{title.directorDTO ? title.directorDTO.name : "-"}</td>
-                  <td className='tableCell'>{title.typeDTO ? title.typeDTO.classValue : "-"}</td>
-                  <td className='tableCell'>{title.typeDTO ? title.typeDTO.name : "-"}</td>
+                  <td className='tableCell'>{title.typeDTO ? "R$ " + title.typeDTO.classValue + ",00" : "-"}</td>
+                  <td className='tableCell'>{title.category}</td>
                   <td className='tableCell'>
                     <ModalActors
                       title_id={title.id}

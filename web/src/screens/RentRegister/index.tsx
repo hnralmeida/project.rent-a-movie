@@ -62,7 +62,7 @@ export default function RentRegister() {
             <div className="row-content">
                 <button
                     className='back-button'
-                    onClick={() => navigate('/filmes')}
+                    onClick={() => navigate(-1)}
                 >
                     Voltar
                 </button>

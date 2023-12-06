@@ -2,12 +2,22 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import updateClient from '../../services/updateClient';
 import postClient from '../../services/postClient';
+import getClient from '../../services/listClient';
 
 export default function ClientRegister() {
 
+    //Dados do servidor
+    const [socioList, setSocioList] = React.useState<any[]>([]);
+
+    // Dados do Formulário
     const [name, setName] = React.useState('');
-    const [value, setValue] = React.useState('');
-    const [returnDate, setreturnDate] = React.useState('');
+    const [birthday, setBirthday] = React.useState('');
+    const [sexoBiologico, setSexoBiologico] = React.useState('M');
+    const [CPF, setCPF] = React.useState('');
+    const [checkSocio, setCheckSocio] = React.useState(false);
+    const [endereco, setEndereco] = React.useState('');
+    const [telefone, setTelefone] = React.useState('');
+    const [socioID, setSocioID] = React.useState('');
 
     const [ClientProps, setClientProps] = React.useState<any>(null);
     const navigate = useNavigate();
@@ -15,10 +25,14 @@ export default function ClientRegister() {
 
     function handleSubmit() {
         const clientSubmit = {
-            id: ClientProps? ClientProps.id : 0,
+            id: ClientProps ? ClientProps.id : 0,
             name: name,
-            value: value,
-            returnDate: returnDate
+            birthday: birthday,
+            bioSex: sexoBiologico,
+            cpf: CPF,
+            address: endereco,
+            telefone: telefone,
+            socio: checkSocio ? '' : socioList.find((socio) => socio.id === Number(socioID)),
         }
         ClientProps ?
             updateClient(clientSubmit).then((data) => {
@@ -41,28 +55,60 @@ export default function ClientRegister() {
     }
 
     function handleValueInputChange(event: any) {
-        setValue(event.target.value);
+        setBirthday(event.target.value);
     }
 
-    function handlereturnDateInputChange(event: any) {
-        setreturnDate(event.target.value);
+    function handleBioSexInputChange(event: any) {
+        setSexoBiologico(event.target.value);
+        console.log(event.target.value);
+    }
+
+    function handleCheckBoxChange(event: any) {
+        setCheckSocio(!checkSocio);
+    }
+
+    function handleCPFInputChange(event: any) {
+        setCPF(event.target.value);
+    }
+
+    function handleEnderecoInputChange(event: any) {
+        setEndereco(event.target.value);
+    }
+
+    function handleTelefoneInputChange(event: any) {
+        setTelefone(event.target.value);
+    }
+
+    function handleSocioInputChange(event: any) {
+        setSocioID(event.target.value);
     }
 
     React.useEffect(() => {
         params.state ? (
-            setName(params.state.classProps.name),
-            setValue(params.state.classProps.classValue),
-            setreturnDate(params.state.classProps.returnDate),
-            setClientProps(params.state.classProps)
+            setClientProps(params.state.clientProps)
         ) : null;
-    }, [params]);
+
+        getClient().then((data) => {
+            setSocioList(data);
+        }).catch((erro: any) => {
+            alert("Erro ao obter sócios: " + erro.message)
+        })
+    }, []);
+
+    React.useEffect(() => {
+        ClientProps ? (
+            setName(ClientProps.name),
+            setBirthday(ClientProps.classValue),
+            setSexoBiologico(ClientProps.returnDate)
+        ) : null;
+    }, [ClientProps]);
 
     return (
         <div className="App-content">
             <div className="row-content">
                 <button
                     className='back-button'
-                    onClick={() => navigate('/filmes')}
+                    onClick={() => navigate(-1)}
                 >
                     Voltar
                 </button>
@@ -70,7 +116,7 @@ export default function ClientRegister() {
                     <div className="input-center">
                         <label>Nome: </label>
                         <input
-                            className="input-space"
+                            className="form-div"
                             type="text"
                             name="name"
                             value={name}
@@ -79,25 +125,102 @@ export default function ClientRegister() {
                     </div>
 
                     <div className="input-center">
-                        <label>Valor: </label>
+                        <label>Nascimento: </label>
                         <input
-                            className="input-space"
-                            type="number"
-                            name="classValue"
-                            value={value}
+                            className="form-div"
+                            type="date"
+                            name="birthday"
+                            value={birthday}
                             onChange={handleValueInputChange}
                         />
                     </div>
+
                     <div className="input-center">
-                        <label>Prazo de Devolução: </label>
-                        <input
-                            className="input-space"
-                            type="number"
-                            name="returnDate"
-                            value={returnDate}
-                            onChange={handlereturnDateInputChange}
-                        />
+                        <label>Sexo: </label>
+                        <select
+                            className="form-div"
+                            name="sexoBiologico"
+                            onChange={handleBioSexInputChange}
+                        >
+                            <option value="">Selecione sexo Biológico</option>
+                            <option key={'F'} value={'F'}>
+                                Feminino
+                            </option>
+                            <option key={'M'} value={'M'}>
+                                Masculino
+                            </option>
+                        </select>
                     </div>
+
+                    <div className="form-checkbox">
+                        <input
+                            type="checkbox"
+                            name="checkSocio"
+                            onChange={handleCheckBoxChange}
+                        />
+                        <label> Sócio </label>
+                    </div>
+
+                    {checkSocio &&
+                        <div className="input-center">
+                            <label>CPF: </label>
+                            <input
+                                className="form-div"
+                                type="text"
+                                name="cpf"
+                                value={CPF}
+                                onChange={handleCPFInputChange}
+                            />
+                        </div>
+                    }
+
+                    {checkSocio &&
+                        <div className="input-center">
+                            <label>Endereço: </label>
+                            <input
+                                className="form-div"
+                                type="text"
+                                name="endereco"
+                                value={endereco}
+                                onChange={handleEnderecoInputChange}
+                            />
+                        </div>
+                    }
+
+                    {checkSocio &&
+                        <div className="input-center">
+                            <label>Telefone: </label>
+                            <input
+                                className="form-div"
+                                type="text"
+                                name="telefone"
+                                value={telefone}
+                                onChange={handleTelefoneInputChange}
+                            />
+                        </div>
+                    }
+
+                    {!checkSocio &&
+                        <div className="input-center">
+                            <label>Sócio: </label>
+                            <select
+                                className="form-div"
+                                name="socio"
+                                onChange={handleSocioInputChange}
+                            >
+                                <option value="">Selecione sócio a qual pertence</option>
+                                {
+                                    socioList.map((socio) => (
+                                        <option
+                                            key={socio.id}
+                                            value={socio.id}
+                                        >
+                                            {socio.name}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
+                    }
 
                     <div
                         className='submit-button-div'
@@ -106,7 +229,7 @@ export default function ClientRegister() {
                             className='submit-button'
                             type="submit"
                         >
-                            {ClientProps ? 'Editar Filme' : 'Cadastrar Filme'}
+                            {ClientProps ? 'Editar Cliente' : 'Cadastrar Cliente'}
                         </button>
                     </div>
                 </form>

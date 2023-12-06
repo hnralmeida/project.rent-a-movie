@@ -43,7 +43,7 @@ export default function ClientList() {
                   <button
                     id='edit-actor'
                     className="button-td-left"
-                    onClick={() => navigate('add', { state: { classProps: classKey } })}
+                    onClick={() => navigate('add', { state: { clientProps: classKey } })}
                   >
                     Editar
                   </button>
@@ -69,7 +69,7 @@ export default function ClientList() {
         className='add-button'
         onClick={() => navigate('add')}
       >
-        Adicionar Classe
+        Novo Cliente
       </button>
     </div>
   );

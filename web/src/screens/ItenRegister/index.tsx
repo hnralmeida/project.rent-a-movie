@@ -5,26 +5,37 @@ import postItem from '../../services/postItem';
 import getTitle from '../../services/getTitle';
 import listTitle from '../../services/listTitle';
 
+const item_tipo = [
+    "DVD",
+    "VHS",
+    "BLURAY"
+]
+
 export default function ItemRegister() {
 
+    // Dados vindo do servidor para o select
+    const [titleList, setTitleList] = React.useState<any[]>([]);
+
+    // Register Form elements
     const [itemNumSerie, setItemNumSerie] = React.useState('');
     const [itemdtAquisicao, setItemdtAquisicao] = React.useState('');
-    const [itemTipo, setItemTipo] = React.useState('');
-    const [title_id, setTitle_id] = React.useState('');
-    const [titleList, setTitleList] = React.useState<any[]>([]);
-    const [itemProps, setItemProps] = React.useState<any>(null);
-    const navigate = useNavigate();
+    const [itemTipo, setItemTipo] = React.useState('1');
+    const [titleId, setTitle] = React.useState('');
+
+    // Entrada do modo edição
     const params = useLocation();
+    const [itemProps, setItemProps] = React.useState<any>(null);
 
-    function handleSubmit() {
+    const navigate = useNavigate();
 
+    function handleSubmitForm() {
         // Objeto de Item
         const itemSubmit = {
-            id: itemProps.id,
+            id: itemProps ? itemProps.id : null,
             numSerie: itemNumSerie,
             dtAquisicao: itemdtAquisicao,
+            title: titleId ? titleList.find((title) => title.id === Number(titleId)) : titleList[0],
             tipoItem: itemTipo,
-            title_id: title_id
         }
 
         itemProps ?
@@ -39,9 +50,9 @@ export default function ItemRegister() {
                 alert("Cadastrado com sucesso!");
                 navigate(-1)
             }).catch((error: any) => {
+                navigate(-1)
                 alert("Falha:" + error.message);
-            }
-            )
+            })
     }
 
     function handleInputChange1(event: any) {
@@ -54,27 +65,36 @@ export default function ItemRegister() {
 
     function handleInputChange3(event: any) {
         setItemTipo(event.target.value);
+        console.log(event.target.value)
     }
 
     function handleInputChange4(event: any) {
-        setTitle_id(event.target.value);
+        setTitle(event.target.value);
     }
+
+    React.useEffect(() => {
+        // Se vier a partir do fluxo de edição, seta os valores iniciais
+        params.state ? (
+            setItemProps(params.state.itemProps)
+        ) : null;
+    }, [params]);
+
+    React.useEffect(() => {
+        // Se vier a partir do fluxo de edição, seta os valores iniciais
+        itemProps ? (
+            setItemNumSerie(itemProps.serialNumber),
+            setItemTipo(itemProps.itemType),
+            setTitle(itemProps.title),
+            setItemdtAquisicao(itemProps.dtAquisicao)
+        ) : null;
+    }, [itemProps]);
 
     React.useEffect(() => {
         // Busca os Titulos
         listTitle()
             .then(res => setTitleList(res))
             .catch(error => alert("Falha: " + error));
-
-        // Se vier a partir do fluxo de edição, seta os valores iniciais
-        params.state ? (
-            setItemProps(params.state.itemProps),
-            setItemNumSerie(params.state.itemProps.serialNumber),
-            setItemTipo(params.state.itemProps.itemType),
-            setTitle_id(params.state.itemProps.title_id),
-            setItemdtAquisicao(params.state.itemProps.dtAquisicao)
-        ) : null;
-    }, [params]);
+    }, []);
 
     return (
         <div className="App-content">
@@ -85,10 +105,10 @@ export default function ItemRegister() {
                 >
                     Voltar
                 </button>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmitForm}>
                     <div>
-                        <div className="input-center">
-                            <label>Número de Serie:</label>
+                        <div className="form-div">
+                            <label>Nº Serie:</label>
                             <input
                                 className="input-space"
                                 type="text"
@@ -97,8 +117,8 @@ export default function ItemRegister() {
                                 onChange={handleInputChange1}
                             />
                         </div>
-                        <div className="input-center">
-                            <label>Data de Aquisição: </label>
+                        <div className="form-div">
+                            <label>Aquisição: </label>
                             <input
                                 className="input-space"
                                 type="date"
@@ -107,23 +127,28 @@ export default function ItemRegister() {
                                 onChange={handleInputChange2}
                             />
                         </div>
-                        <div className="input-center">
-                            <label>Tipo: </label>
-                            <input
+                        <div className="form-div">
+                            <label>Mídia: </label>
+                            <select
                                 className="input-space"
-                                type="text"
                                 name="itemType"
-                                value={itemTipo}
                                 onChange={handleInputChange3}
-                            />
+                            >
+                                <option value="">Selecione um tipo de item</option>
+                                {item_tipo.map((item) => (
+                                    <option key={item} value={item}>
+                                        {item}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
-                        <div className="input-center">
+                        <div className="form-div">
                             <label id="title">Título: </label>
                             <select
                                 className="input-space"
                                 id="title"
                                 name="title_id"
-                                value={title_id}
+                                value={titleId}
                                 onChange={handleInputChange4}
                             >
                                 {
