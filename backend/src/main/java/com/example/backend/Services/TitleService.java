@@ -30,6 +30,33 @@ public class TitleService {
                         .toList());
     }
 
+    public ResponseEntity<List<TitleDTO>> getListTitlesByName(String titleName) {
+        return ResponseEntity.ok(
+                repository
+                        .getListTitlesByName(titleName)
+                        .stream()
+                        .map(title -> (mapper.map(title, TitleDTO.class)))
+                        .toList());
+    }
+
+    public ResponseEntity<List<TitleDTO>> getListTitlesByDirector(String directorName) {
+        return ResponseEntity.ok(
+                repository
+                        .getListTitlesByDirector(directorName)
+                        .stream()
+                        .map(title -> (mapper.map(title, TitleDTO.class)))
+                        .toList());
+    }
+
+    public ResponseEntity<List<TitleDTO>> getListTitlesByCategory(String category) {
+        return ResponseEntity.ok(
+                repository
+                        .getListTitlesByCategory(category)
+                        .stream()
+                        .map(title -> (mapper.map(title, TitleDTO.class)))
+                        .toList());
+    }
+
     public ResponseEntity<TitleDTO> findById(Long id) {
         if(!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
