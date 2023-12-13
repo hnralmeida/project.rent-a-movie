@@ -13,5 +13,4 @@ public class ClientDTO {
     private Date birthDate;
     private String gender;
     private Boolean isActive;
-    private List<DependentDTO> dependentDTOList;
 }
