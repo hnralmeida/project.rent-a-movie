@@ -34,6 +34,9 @@ public class Title {
     @Column(name = "CATEGORY", nullable = false, length = 255)
     private String category;
 
+    @Column(name = "RELEASE_YEAR", nullable = false)
+    private Long year;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(table = "ACTOR")
     private List<Actor> actorList;
@@ -49,8 +52,9 @@ public class Title {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "title")
     private List<Item> itemList;
 
-    public Title(String name, String synopsis, String category, List<Actor> actorList, Director director, Type type, List<Item> itemList) {
+    public Title(String name, Long year, String synopsis, String category, List<Actor> actorList, Director director, Type type, List<Item> itemList) {
         this.name = name;
+        this.year = year;
         this.synopsis = synopsis;
         this.category = category;
         this.actorList = actorList;
