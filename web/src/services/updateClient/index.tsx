@@ -10,6 +10,8 @@ export default function updateClient(client: any): Promise<any> {
             isActive: client.isActive,
         }).then((res: any) => {
             resolve(res.data)
+        }).catch((err) => {
+            reject(err)
         });
     })
 }

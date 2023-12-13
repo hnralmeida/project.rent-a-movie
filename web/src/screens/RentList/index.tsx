@@ -31,32 +31,32 @@ export default function RentList() {
       <table>
         <thead>
           <tr>
-            <th className='th-left'>N° de Série</th>
+            <th className='th-left'>Serial</th>
+            <th>Filme</th>
             <th>Cliente</th>
             <th>Empréstimo</th>
-            <th>Retorno</th>
+            <th>Devolução</th>
             <th>Multa</th>
-            <th>Filme</th>
             <th className='th-right'>Ação</th>
           </tr>
         </thead>
         <tbody>
           {
-            rentList.map((item, index) => (
+            rentList.map((locacao, index) => (
               <tr key={index}>
-                <td>{item.itemDTO ? item.itemDTO.serialNumber : "?"}</td>
-                <td className='td-center'>{item.ClientDTO ? item.ClientDTO.name : "?"}</td>
-                <td className='td-center'>{item.dtExpectedReturn ? functions.timestampToDate(item.dtExpectedReturn) : "?"}</td>
-                <td className='td-center'>{item.dtActualReturn ? functions.timestampToDate(item.dtActualReturn)  : "?"}</td>
-                <td className='td-right'>{item.amountCharged ? item.amountCharged : "?"}</td>
+                <td>{locacao.itemDTO ? locacao.itemDTO.serialNumber : "?"}</td>
                 <td className='tableCell'>
-                  {item.item? <ModalMovie id={item.id}/>: '?'}
+                  {locacao.item? <ModalMovie id={locacao.id}/>: '?'}
                 </td>
+                <td className='td-center'>{locacao.client ? locacao.client.name : "?"}</td>
+                <td className='td-center'>{locacao.dtLease ? functions.timestampToDate(locacao.dtLease) : "?"}</td>
+                <td className='td-center'>{locacao.dtActualReturn ? functions.timestampToDate(locacao.dtActualReturn)  : "?"}</td>
+                <td className='td-right'>{locacao.amountCharged ? locacao.amountCharged : "?"}</td>
                 <td className='button-td-div'>
                   <button
                     id='edit-actor'
                     className="button-td-left"
-                    onClick={() => navigate('add', { state: { classProps: item } })}
+                    onClick={() => navigate('add', { state: { classProps: locacao } })}
                   >
                     Editar
                   </button>
@@ -64,7 +64,7 @@ export default function RentList() {
                     id='delete-actor'
                     className="button-td-right"
                     onClick={() => {
-                      deleteRent(item.id).then(() => {
+                      deleteRent(locacao.id).then(() => {
                         navigate(0);
                       })
                     }}

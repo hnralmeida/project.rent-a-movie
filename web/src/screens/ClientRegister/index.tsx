@@ -11,8 +11,8 @@ export default function ClientRegister() {
 
     // Dados do Formulário
     const [name, setName] = React.useState('');
-    const [birthday, setBirthday] = React.useState('');
-    const [sexoBiologico, setSexoBiologico] = React.useState('M');
+    const [birthday, setBirthday] = React.useState<any>();
+    const [sexoBiologico, setSexoBiologico] = React.useState('MASCULINO');
     const [CPF, setCPF] = React.useState('');
     const [checkSocio, setCheckSocio] = React.useState(false);
     const [endereco, setEndereco] = React.useState('');
@@ -24,16 +24,24 @@ export default function ClientRegister() {
     const params = useLocation();
 
     function handleSubmit() {
-        const clientSubmit = {
+        const clientSubmit = checkSocio ? {
             id: ClientProps ? ClientProps.id : 0,
+            sub: 1024,
             name: name,
-            birthday: birthday,
+            birthday: birthday.getTime(),
             bioSex: sexoBiologico,
             cpf: CPF,
             address: endereco,
             telefone: telefone,
-            socio: checkSocio ? '' : socioList.find((socio) => socio.id === Number(socioID)),
+        } : {
+            id: ClientProps ? ClientProps.id : 0,
+            sub: 1024,
+            name: name,
+            birthday: birthday,
+            bioSex: sexoBiologico,
+            socio: socioList.find((socio) => socio.id === Number(socioID)),
         }
+
         ClientProps ?
             updateClient(clientSubmit).then((data) => {
                 navigate(-1)
@@ -98,8 +106,9 @@ export default function ClientRegister() {
     React.useEffect(() => {
         ClientProps ? (
             setName(ClientProps.name),
-            setBirthday(ClientProps.classValue),
-            setSexoBiologico(ClientProps.returnDate)
+            setBirthday(new Date(ClientProps.birthDate)),
+            setSexoBiologico(ClientProps.gender),
+            setSocioID(ClientProps.socio ? ClientProps.socio.id : '')
         ) : null;
     }, [ClientProps]);
 
@@ -141,12 +150,13 @@ export default function ClientRegister() {
                             className="form-div"
                             name="sexoBiologico"
                             onChange={handleBioSexInputChange}
+                            defaultValue={ClientProps ? ClientProps.gender : sexoBiologico}
                         >
                             <option value="">Selecione sexo Biológico</option>
-                            <option key={'F'} value={'F'}>
+                            <option key={'FEMININO'} value={'FEMININO'}>
                                 Feminino
                             </option>
-                            <option key={'M'} value={'M'}>
+                            <option key={'MASCULINO'} value={'MASCULINO'}>
                                 Masculino
                             </option>
                         </select>

@@ -18,7 +18,7 @@ export default function ItemRegister() {
 
     // Register Form elements
     const [itemNumSerie, setItemNumSerie] = React.useState('');
-    const [itemdtAquisicao, setItemdtAquisicao] = React.useState('');
+    const [itemdtAquisicao, setItemdtAquisicao] = React.useState<any>();
     const [itemTipo, setItemTipo] = React.useState(1);
     const [titleId, setTitle] = React.useState('');
 
@@ -33,7 +33,7 @@ export default function ItemRegister() {
         const itemSubmit = {
             id: itemProps ? itemProps.id : null,
             numSerie: itemNumSerie,
-            dtAquisicao: itemdtAquisicao,
+            dtAquisicao: itemdtAquisicao.getTime(),
             tipoItem: item_tipo[itemTipo],
             title: titleId ? titleList.find((title) => title.id === Number(titleId)) : titleList[0],
         }
