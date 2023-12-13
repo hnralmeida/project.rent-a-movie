@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import updateClient from '../../services/updateClient';
 import postClient from '../../services/postClient';
 import getClient from '../../services/listClient';
+import postDependent from '../../services/postDependent';
+import updateDepedent from '../../services/updateDependent';
 
 export default function ClientRegister() {
 
@@ -37,12 +39,13 @@ export default function ClientRegister() {
             id: ClientProps ? ClientProps.id : 0,
             sub: 1024,
             name: name,
-            birthday: birthday,
+            birthday: birthday.getTime(),
             bioSex: sexoBiologico,
             socio: socioList.find((socio) => socio.id === Number(socioID)),
         }
 
-        ClientProps ?
+        checkSocio ? (
+            ClientProps ?
             updateClient(clientSubmit).then((data) => {
                 navigate(-1)
                 alert(data + " Atualizado com sucesso!");
@@ -55,7 +58,24 @@ export default function ClientRegister() {
                 alert(data + " Cadastrado com sucesso!");
             }).catch((error) => {
                 alert(error);
-            });
+            })
+        ) : (
+            ClientProps ?
+            updateDepedent(clientSubmit).then((data) => {
+                navigate(-1)
+                alert(data + " Atualizado com sucesso!");
+            }).catch((error) => {
+                alert(error);
+            })
+            :
+            postDependent(clientSubmit).then((data) => {
+                navigate(-1)
+                alert(data + " Cadastrado com sucesso!");
+            }).catch((error) => {
+                alert(error);
+            })
+        )
+
     }
 
     function handleNameInputChange(event: any) {

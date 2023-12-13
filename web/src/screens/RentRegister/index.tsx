@@ -186,8 +186,8 @@ export default function RentRegister() {
                                                 className="form-div"
                                                 type="date"
                                                 name="rentDate"
-                                                defaultValue={rentDate}
                                                 value={rentDate}
+                                                defaultValue={"2023-12-12"}
                                                 onChange={handleRentDateInputChange}
                                             />
                                         </div>

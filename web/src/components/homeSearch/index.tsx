@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import listTitle from '../../services/listTitle';
+import querryHome from '../../services/querryHome';
 
 const HomeSearch = () => {
 
@@ -21,7 +22,7 @@ const HomeSearch = () => {
     const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // Perform search based on searchTerm and filter
-        listTitle().then((title) => {
+        querryHome(searchTerm, filter).then((title) => {
             setListSelected(title);
         });
     };
@@ -33,7 +34,7 @@ const HomeSearch = () => {
                     <input type="text" value={searchTerm} onChange={handleSearch} placeholder="Procurar na locadora..." />
                     <select value={filter} onChange={handleFilterChange}>
                         <option value="title">Filme</option>
-                        <option value="actor">Ator</option>
+                        <option value="category">Categoria</option>
                         <option value="director">Diretor</option>
                     </select>
                 </div>
