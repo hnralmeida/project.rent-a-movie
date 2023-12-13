@@ -12,7 +12,7 @@ public class TitleDTO {
     private String name;
     private String synopsis;
     private String category;
-    private List<ActorDTO> actorDTOList;
-    private DirectorDTO directorDTO;
-    private TypeDTO typeDTO;
+    private List<ActorDTO> actorList;
+    private DirectorDTO director;
+    private TypeDTO type;
 }
