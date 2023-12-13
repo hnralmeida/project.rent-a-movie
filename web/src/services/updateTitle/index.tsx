@@ -12,9 +12,9 @@ export default function updateTitle(title: any): Promise<any> {
                 year: title.ano,
                 synopsis: title.sinopse,
                 category: title.categoria,
-                directorDTO: title.diretor,
-                typeDTO: title.classe,
-                actorDTOList: title.atores
+                director: title.diretor,
+                type: title.classe,
+                actorList: title.atores
             }).then((res: any) => {
                 resolve(res.data)
             }).catch((error: any) => {

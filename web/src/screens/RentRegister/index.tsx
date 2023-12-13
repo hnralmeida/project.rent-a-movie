@@ -4,6 +4,7 @@ import updateRent from '../../services/updateRent';
 import postRent from '../../services/postRent';
 import getItem from '../../services/getItem';
 import listTitle from '../../services/listTitle';
+import getClient from '../../services/listClient';
 
 export default function RentRegister() {
 
@@ -11,31 +12,32 @@ export default function RentRegister() {
     const [listItem, setlistItem] = React.useState<any[]>([]);
     const [listClient, setlistClient] = React.useState<any[]>([]);
 
-
-    const [idItemSelected, setItemId] = React.useState('');
     const [itemSelected, setItemSelected] = React.useState<any>(null);
     const [cliente, setCliente] = React.useState('');
     const [returnDate, setReturnDate] = React.useState<any>();
-    const [limitDate, setLimitDate] = React.useState('');
+    const [limitDate, setLimitDate] = React.useState<any>();
     const [rentDate, setRentDate] = React.useState<any>();
-    const [charge, setcharge] = React.useState('');
-    const [lateFee, setLateFee] = React.useState('');
+    const [charge, setcharge] = React.useState(0);
+    const [lateFee, setLateFee] = React.useState(0);
 
     const [RentProps, setRentProps] = React.useState<any>(null);
     const navigate = useNavigate();
     const params = useLocation();
 
-    function handleSubmit() {
+    function handleSubmitForm() {
+        alert(cliente + ' ' + itemSelected.titleDTO.name);
+
         const rentSubmit = {
             id: RentProps ? RentProps.id : null,
-            dtLocacao: rentDate,
-            dtPrevista: limitDate,
-            dtDevolucao: returnDate,
+            dtLocacao: rentDate.getTime(),
+            dtPrevista: limitDate.getTime(),
+            dtDevolucao: returnDate.getTime(),
             cliente: cliente ? listClient.find((cli) => cli.id === Number(cliente)) : listClient[0],
-            item: itemSelected ? itemSelected : listItem[0],
+            item: itemSelected,
             valorCobrado: charge,
             multa: lateFee,
         }
+
         RentProps ?
             updateRent(rentSubmit).then((data: any) => {
                 navigate(-1)
@@ -44,16 +46,10 @@ export default function RentRegister() {
                 alert(error);
             })
             :
-            postRent(rentSubmit).then((data: any) => {
-                navigate(-1)
-                alert(data + " Cadastrado com sucesso!");
-            }).catch((error: any) => {
-                alert(error);
-            });
+            alert('Enviando: ' + rentSubmit.cliente.name + ' ' + rentSubmit.item.titleDTO.name)
     }
-    
+
     function handleItemInputChange(event: any) {
-        setItemId(event.target.value);
         setItemSelected(listItem.find((item) => item.id === Number(event.target.value)));
     }
 
@@ -81,12 +77,10 @@ export default function RentRegister() {
         setLateFee(event.target.value);
     }
 
-    
     useEffect(() => {
         itemSelected ? (
-            setLimitDate(itemSelected.typeDTO.returnDate + new Date()),
-            setcharge(itemSelected.typeDTO.classValue),
-            setRentDate(new Date().getTime())
+            setLimitDate(itemSelected.titleDTO.type.returnDate + new Date()),
+            setcharge(itemSelected.titleDTO.type.classValue)
         ) : null;
     }, [itemSelected]);
 
@@ -95,15 +89,28 @@ export default function RentRegister() {
             setRentProps(params.state.classProps)
         ) : null;
 
+        setRentDate(new Date().getTime())
+
         getItem().then((response) => {
             setlistItem(response);
-        })
+            setItemSelected(response[0]);
+        }).catch((error) => {
+            alert(error);
+        });
+
+        getClient().then((response) => {
+            setlistClient(response);
+        }).catch((error) => {
+            alert(error);
+        });
+
     }, []);
 
 
     React.useEffect(() => {
+
         RentProps ? (
-            setItemId(params.state.classProps.name),
+            setItemSelected(params.state.classProps.item),
             setCliente(params.state.classProps.classValue),
             setReturnDate(params.state.classProps.returnDate)
         ) : null;
@@ -120,134 +127,141 @@ export default function RentRegister() {
                 >
                     Voltar
                 </button>
-                <form onSubmit={handleSubmit}>
-                    <div className="input-center">
-                        <label>Cliente:</label>
-                        <select
-                            className="input-space"
-                            name="cliente"
-                            onChange={handleClienteInputChange}
-                        >
-                            {listClient.map((cliente) => (
-                                <option
-                                    key={cliente.id}
-                                    value={cliente.id}
-                                >
-                                    {cliente.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                <form onSubmit={handleSubmitForm}>
+                    <div>
+                        <div className="input-center">
+                            <label>Cliente:</label>
+                            <select
+                                className="input-space"
+                                name="cliente"
+                                onChange={handleClienteInputChange}
+                            >
+                                {
+                                    listClient.map((cliente) => (
+                                        <option
+                                            key={cliente.id}
+                                            value={cliente.id}
+                                        >
+                                            {cliente.name}
+                                        </option>
+                                    ))
+                                }
+                            </select>
+                        </div>
 
-                    <div className="input-center">
-                        <label>Item: </label>
-                        <select
-                            className="input-space"
-                            name="item"
-                            onChange={handleItemInputChange}
-                        >
-                            {listItem.map((item) => (
-                                <option
-                                    key={item.id}
-                                    value={item.id}
-                                >
-                                    {item.titleDTO.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="input-center">
-                        <label>Valor: </label>
-                        <text
-                            name="returnDate"
-                        >
-                            R$ {itemSelected ? itemSelected.typeDTO.classValue : '?'}
-                        </text>
-                    </div>
-                    {
-                        RentProps ?
-                            (
-                                <>
-                                    <div className="input-center">
-                                        <label>Empréstimo: </label>
-                                        <input
-                                            className="form-div"
-                                            type="date"
-                                            name="rentDate"
-                                            value={rentDate}
-                                            onChange={handleRentDateInputChange}
-                                        />
-                                    </div>
+                        <div className="input-center">
+                            <label>Item: </label>
+                            <select
+                                className="input-space"
+                                name="item"
+                                onChange={handleItemInputChange}
+                            >
+                                {
+                                    listItem.map((item) => (
+                                        <option
+                                            key={item.id}
+                                            value={item.id}
+                                        >
+                                            {item.titleDTO.name}
+                                        </option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className="input-center">
+                            <label>Valor: </label>
+                            <text
+                                name="returnDate"
+                            >
+                                R$ {itemSelected ? itemSelected.titleDTO.type.classValue : '?'}
+                            </text>
+                        </div>
+                        {
+                            RentProps ?
+                                (
+                                    <>
+                                        <div className="input-center">
+                                            <label>Empréstimo: </label>
+                                            <input
+                                                className="form-div"
+                                                type="date"
+                                                name="rentDate"
+                                                defaultValue={rentDate}
+                                                value={rentDate}
+                                                onChange={handleRentDateInputChange}
+                                            />
+                                        </div>
 
+                                        <div className="input-center">
+                                            <label>Devolução: </label>
+                                            <input
+                                                className="form-div"
+                                                type="date"
+                                                name="returnDate"
+                                                value={returnDate}
+                                                onChange={handleReturnDateInputChange}
+                                            />
+                                        </div>
+
+                                        <div className="input-center">
+                                            <label>Limite: </label>
+                                            <input
+                                                className="form-div"
+                                                type="date"
+                                                name="limitDate"
+                                                value={limitDate}
+                                                onChange={handleLimitDateInputChange}
+                                            />
+                                        </div>
+
+                                        <div className="input-center">
+                                            <label>Valor Cobrado: </label>
+                                            <input
+                                                className="form-div"
+                                                type="number"
+                                                name="charge"
+                                                value={charge}
+                                                onChange={handleChargeInputChange}
+                                            />
+                                        </div>
+
+                                        <div className="input-center">
+                                            <label>Multa: </label>
+                                            <input
+                                                className="form-div"
+                                                type="number"
+                                                name="lateFee"
+                                                value={lateFee}
+                                                onChange={handleLateFeeInputChange}
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
                                     <div className="input-center">
-                                        <label>Devolução: </label>
-                                        <input
-                                            className="form-div"
-                                            type="date"
+                                        <label>Prazo de Devolução: </label>
+                                        <text
                                             name="returnDate"
-                                            value={returnDate}
-                                            onChange={handleReturnDateInputChange}
-                                        />
+                                        >
+                                            {itemSelected ? itemSelected.titleDTO.type.returnDate + ' dias' : '?'}
+                                        </text>
                                     </div>
+                                )
 
-                                    <div className="input-center">
-                                        <label>Limite: </label>
-                                        <input
-                                            className="form-div"
-                                            type="date"
-                                            name="limitDate"
-                                            value={limitDate}
-                                            onChange={handleLimitDateInputChange}
-                                        />
-                                    </div>
+                        }
 
-                                    <div className="input-center">
-                                        <label>Valor Cobrado: </label>
-                                        <input
-                                            className="form-div"
-                                            type="number"
-                                            name="charge"
-                                            value={charge}
-                                            onChange={handleChargeInputChange}
-                                        />
-                                    </div>
-
-                                    <div className="input-center">
-                                        <label>Multa: </label>
-                                        <input
-                                            className="form-div"
-                                            type="number"
-                                            name="lateFee"
-                                            value={lateFee}
-                                            onChange={handleLateFeeInputChange}
-                                        />
-                                    </div>
-                                </>
-                            ) : (
-                                <div className="input-center">
-                                    <label>Prazo de Devolução: </label>
-                                    <text
-                                        name="returnDate"
-                                    >
-                                        {itemSelected ? itemSelected.typeDTO.returnDate + ' dias' : '?'}
-                                    </text>
-                                </div>
-                            )
-
-                    }
-
-                    <div
-                        className='submit-button-div'
-                    >
-                        <button
-                            className='submit-button'
-                            type="submit"
+                        <div
+                            className='submit-button-div'
                         >
-                            {RentProps ? 'Editar Locação' : 'Cadastrar Locação'}
-                        </button>
+                            <button
+                                className='submit-button'
+                                type="submit"
+                            >
+                                {RentProps ? 'Editar Locação' : 'Cadastrar Locação'}
+                            </button>
+                        </div>
                     </div>
-                </form>
-            </div>
-        </div>
+                </form >
+            </div >
+        </div >
     )
 }

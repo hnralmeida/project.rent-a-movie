@@ -3,6 +3,10 @@ import api from "../api";
 export default function postRent(rent: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
+
+        alert('Enviando: ' + rent.client.name + ' ' + rent.itemDTO.titleDTO.name);
+
+        
         api.post("/api/lease", {
             dtLease: rent.dtLocacao,
             dtExpectedReturn: rent.dtPrevista,
@@ -11,9 +15,11 @@ export default function postRent(rent: any): Promise<any> {
             fineCharged: rent.multa,
             isPaid: rent.false,
             client: rent.cliente,
-            itemDTO: rent.item,
+            item: rent.item,
         }).then((res: any) => {
             resolve(res.data)
+        }).catch((err: any) => {
+            reject(err);
         });
     })
 }

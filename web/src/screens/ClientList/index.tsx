@@ -5,9 +5,11 @@ import React from 'react';
 import { useNavigate, Navigate } from "react-router-dom";
 import listClient from '../../services/listClient';
 import deleteClient from '../../services/deleteClient';
+import DefaultFunctions from '../../services/defaultFunctions';
 
 export default function ClientList() {
-
+  
+  const functions = new DefaultFunctions ();
   const [clientList, setClientList] = React.useState<any[]>([]);
   const [refresh, setRefresh] = React.useState<any[]>([]);
   const navigate = useNavigate();
@@ -24,10 +26,8 @@ export default function ClientList() {
         <thead>
           <tr>
             <th className='th-left'>Cliente</th>
-            <th>Nome</th>
             <th>Data de Nascimento</th>
             <th>Ativo</th>
-            <th>Dependentes</th>
             <th className='th-right'>Ação</th>
           </tr>
         </thead>
@@ -36,9 +36,8 @@ export default function ClientList() {
             clientList.map((classKey, index) => (
               <tr key={index}>
                 <td>{classKey.name}</td>
-                <td className='td-center'>{classKey.birthDate || "?"}</td>
-                <td>{classKey.isActive}</td>
-                <td>...</td>
+                <td className='td-center'>{ functions.timestampToDate(classKey.birthDate) || "?"}</td>
+                <td>{classKey.isActive ? 'Ativo' : 'Desativado'}</td>
                 <td className='button-td-div'>
                   <button
                     id='edit-actor'

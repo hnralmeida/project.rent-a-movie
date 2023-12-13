@@ -52,7 +52,7 @@ export default function TitleList() {
                   <td className='tableCell'>
                     <ModalActors
                       title_id={title.id}
-                      cast={title.actorDTOList}
+                      cast={title.actorList}
                     />
                   </td>
                   <td className='button-td-div'>

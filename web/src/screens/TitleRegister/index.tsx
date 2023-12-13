@@ -12,7 +12,7 @@ interface Title {
     year: any,
     synopsis: any,
     category: any,
-    actorDTOList: any[],
+    actorList: any[],
     directorDTO: any,
     typeDTO: any,
 }
@@ -121,7 +121,7 @@ export default function TitleRegister() {
             setTitleDirector(titleProps.directorDTO ? titleProps.directorDTO.id : undefined),
             setTitleClassType(titleProps.typeDTO ? titleProps.typeDTO.id : undefined),
             setTitleCategoria(titleProps.category),
-            setTitleActors(titleProps.actorDTOList)
+            setTitleActors(titleProps.actorList)
         ) : null;
 
     }, [titleProps]);
