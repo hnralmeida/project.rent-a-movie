@@ -30,6 +30,21 @@ public class TitleController {
     @GetMapping
     public ResponseEntity<List<TitleDTO>> getList() { return service.getList();}
 
+    @GetMapping("/byName/{titleName}")
+    public ResponseEntity<List<TitleDTO>> getTitleListByName(@PathVariable String titleName) {
+        return service.getListTitlesByName(titleName);
+    }
+
+    @GetMapping("/byDirector/{directorName}")
+    public ResponseEntity<List<TitleDTO>> getTitleListByDirector(@PathVariable String directorName) {
+        return service.getListTitlesByDirector(directorName);
+    }
+
+    @GetMapping("/byCategory/{category}")
+    public ResponseEntity<List<TitleDTO>> getTitleListByCategory(@PathVariable String category) {
+        return service.getListTitlesByCategory(category);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TitleDTO> findById(@PathVariable Long id) { return service.findById(id);}
 
