@@ -4,7 +4,7 @@ export default function getRent(): Promise<any> {
 
     return new Promise((resolve) => {
         
-        api.get("/api/client").then((res:any) => {
+        api.get("/api/lease").then((res:any) => {
             console.log(res);
             resolve(res.data);
         });

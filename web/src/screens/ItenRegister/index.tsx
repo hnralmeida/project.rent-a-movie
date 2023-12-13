@@ -19,7 +19,7 @@ export default function ItemRegister() {
     // Register Form elements
     const [itemNumSerie, setItemNumSerie] = React.useState('');
     const [itemdtAquisicao, setItemdtAquisicao] = React.useState('');
-    const [itemTipo, setItemTipo] = React.useState('1');
+    const [itemTipo, setItemTipo] = React.useState(1);
     const [titleId, setTitle] = React.useState('');
 
     // Entrada do modo edição
@@ -34,15 +34,16 @@ export default function ItemRegister() {
             id: itemProps ? itemProps.id : null,
             numSerie: itemNumSerie,
             dtAquisicao: itemdtAquisicao,
+            tipoItem: item_tipo[itemTipo],
             title: titleId ? titleList.find((title) => title.id === Number(titleId)) : titleList[0],
-            tipoItem: itemTipo,
         }
 
         itemProps ?
             updateItem(itemSubmit).then((data) => {
-                alert("Atualizado com sucesso!");
                 navigate(-1)
+                alert("Atualizado com sucesso!");
             }).catch((error: any) => {
+                navigate(-1)
                 alert("Falha:" + error.message);
             })
             :
@@ -50,8 +51,8 @@ export default function ItemRegister() {
                 alert("Cadastrado com sucesso!");
                 navigate(-1)
             }).catch((error: any) => {
-                navigate(-1)
                 alert("Falha:" + error.message);
+                navigate(-1)
             })
     }
 
@@ -64,7 +65,7 @@ export default function ItemRegister() {
     }
 
     function handleInputChange3(event: any) {
-        setItemTipo(event.target.value);
+        setItemTipo(Number(event.target.value));
         console.log(event.target.value)
     }
 
@@ -83,8 +84,8 @@ export default function ItemRegister() {
         // Se vier a partir do fluxo de edição, seta os valores iniciais
         itemProps ? (
             setItemNumSerie(itemProps.serialNumber),
-            setItemTipo(itemProps.itemType),
-            setTitle(itemProps.title),
+            setItemTipo(item_tipo.indexOf(itemProps.itemType)||0),
+            setTitle(itemProps.titleDTO.id),
             setItemdtAquisicao(itemProps.dtAquisicao)
         ) : null;
     }, [itemProps]);
@@ -133,8 +134,8 @@ export default function ItemRegister() {
                                 className="input-space"
                                 name="itemType"
                                 onChange={handleInputChange3}
+                                defaultValue={itemTipo}
                             >
-                                <option value="">Selecione um tipo de item</option>
                                 {item_tipo.map((item) => (
                                     <option key={item} value={item}>
                                         {item}

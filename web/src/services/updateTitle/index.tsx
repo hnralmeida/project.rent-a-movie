@@ -3,7 +3,7 @@ import api from "../api";
 export default function updateTitle(title: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
-        alert("Update title: " + title.diretor.name + " " + title.diretor.id);
+        alert(title.atores)
 
         api.put("/api/title/" + title.id,
             {
@@ -13,10 +13,12 @@ export default function updateTitle(title: any): Promise<any> {
                 synopsis: title.sinopse,
                 category: title.categoria,
                 directorDTO: title.diretor,
-                typeDTO: title.classe
+                typeDTO: title.classe,
+                actorDTOList: title.atores
             }).then((res: any) => {
                 resolve(res.data)
             }).catch((error: any) => {
+                alert(error.message)
                 reject(error)
             });
     })

@@ -1,6 +1,7 @@
 .App {
   display: flex;
-  flex-direction: column; /* Altere para uma disposição em coluna */
+  flex-direction: column;
+  /* Altere para uma disposição em coluna */
   background-color: #282c34;
   font-size: calc(10px + 2vmin);
   height: 100vh;
@@ -16,13 +17,15 @@
 .App-header {
   background-color: black;
   padding: 20px;
-  display: flex; /* Altere para flex */
+  display: flex;
+  /* Altere para flex */
   align-items: center;
   justify-content: center;
   /* Tornar o cabeçalho fixo no topo */
   top: 0;
   left: 0;
-  right: 0; /* Estenda o cabeçalho à largura total */
+  right: 0;
+  /* Estenda o cabeçalho à largura total */
   z-index: 1;
 }
 
@@ -55,12 +58,54 @@
 
 .App-content {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   /* height: calc(100vh-120px); */
   height: 100%;
   background-color: #282c34;
+}
+
+.App-content text {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 25%;
+  margin-bottom: 32px;
+}
+
+.column-content {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.row-content {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.homeSearch {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.homeSearch input {
+  width: 70%;
+  height: 32px;
+  border-radius: 10px 0 0 10px;
+  border: none;
+  padding: 0 8px;
+}
+
+.homeSearch select {
+  width: 30%;
+  height: 32px;
+  border-radius: 0 10px 10px 0;
+  border: none;
+  padding: 0 8px;
 }
 
 .button-nav {
@@ -134,9 +179,12 @@
   cursor: pointer;
   bottom: 20px;
   right: 20px;
-  border-top-left-radius: 10px; /* Reduzindo o valor do border-radius para suavizar as bordas */
-  border-bottom-left-radius: 10px; /* Reduzindo o valor do border-radius para suavizar as bordas */
-  padding: 10px 15px; /* Adicionando padding para melhorar a aparência */
+  border-top-left-radius: 10px;
+  /* Reduzindo o valor do border-radius para suavizar as bordas */
+  border-bottom-left-radius: 10px;
+  /* Reduzindo o valor do border-radius para suavizar as bordas */
+  padding: 10px 15px;
+  /* Adicionando padding para melhorar a aparência */
   justify-content: center;
   align-items: center;
 }
@@ -148,9 +196,12 @@
   cursor: pointer;
   bottom: 20px;
   right: 20px;
-  border-top-right-radius: 10px; /* Reduzindo o valor do border-radius para suavizar as bordas */
-  border-bottom-right-radius: 10px; /* Reduzindo o valor do border-radius para suavizar as bordas */
-  padding: 10px 15px; /* Adicionando padding para melhorar a aparência */
+  border-top-right-radius: 10px;
+  /* Reduzindo o valor do border-radius para suavizar as bordas */
+  border-bottom-right-radius: 10px;
+  /* Reduzindo o valor do border-radius para suavizar as bordas */
+  padding: 10px 15px;
+  /* Adicionando padding para melhorar a aparência */
   justify-content: center;
   align-items: center;
 }
@@ -167,17 +218,44 @@ td {
 
 .button-td-div {
   display: flex;
-  width:128px;
+  width: 100%;
   padding-top: 4px;
   flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .column-content {
   display: flex;
   flex-direction: column;
   width: 50%;
+}
+
+.movie-list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  padding: 8px 32px;
+  margin-bottom: 16px;
+  border: 1px solid #F14D16;
+  border-radius: 8px;
+}
+
+.movie-list-item:hover {
+  background-color: #F14D16;
+  color: white;
+  cursor: pointer;
+}
+
+.movie-list-item-title {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.movie-list-item-synopsis {
+  font-size: 18px;
+  font-weight: 300;
 }
 
 .back-button {
@@ -202,20 +280,22 @@ td {
 
 .form-div input {
   height: 24px;
-} 
+}
 
-.form-div label, .input-center label {
+.form-div label,
+.input-center label {
   width: 50%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: 0 8px;
 }
 
 .form-div select {
   height: 24px;
-} 
+}
 
-select, input {
+select,
+input {
   width: 100%;
 }
 
@@ -238,14 +318,44 @@ select, input {
   width: 100%;
 }
 
-.input-center{
+.input-center {
   display: flex;
   margin: 8px 0px;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .input-space {
   margin: 0px 8px;
+}
+
+.input-multiselect {
+  /* Estilo básico para o espaço do input */
+  padding: 8px;
+  font-size: 14px;
+}
+
+/* Estilo para melhorar a visibilidade do dropdown */
+.input-multiselect:focus {
+  display: flex;
+  height: 100%;
+  outline: none; /* Remova a borda de foco padrão (pode variar dependendo do navegador) */
+  border-color: #3498db; /* Cor da borda quando o dropdown está em foco */
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Sombra para destacar o dropdown quando em foco */
+}
+
+/* Estilo para a seta do dropdown */
+.input-multiselect::-ms-expand {
+  display: none; /* Remova a seta do dropdown no IE */
+}
+
+.input-multiselect::after {
+  content: '\25BC'; /* Código unicode para uma seta para baixo ▼ */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #555; /* Cor da seta */
 }
 
 .form-checkbox {
@@ -261,24 +371,33 @@ select, input {
 }
 
 .modal {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
 .modal-content {
   background-color: #000000;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
+  /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
+  /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */

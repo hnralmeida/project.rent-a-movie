@@ -28,7 +28,7 @@ export default function TitleRegister() {
     const [titleYear, setTitleYear] = React.useState('');
     const [titleSinopse, setTitleSinopse] = React.useState('');
     const [titleDirector, setTitleDirector] = React.useState<any>();
-    const [titleClassType, setTitleClassType] = React.useState('');
+    const [titleClassType, setTitleClassType] = React.useState<any>();
     const [titleCategoria, setTitleCategoria] = React.useState('');
     const [titleActors, setTitleActors] = React.useState<any[]>([]);
 
@@ -45,11 +45,13 @@ export default function TitleRegister() {
             nome: titleName,
             ano: titleYear,
             sinopse: titleSinopse,
+            categoria: titleCategoria,
             diretor: titleDirector ? listDirectors.find((director) => director.id === Number(titleDirector)) : listDirectors[0],
             classe: titleClassType ? listClasse.find((classe) => classe.id === Number(titleClassType)) : listClasse[0],
-            categoria: titleCategoria,
-            atores: titleActors
+            atores: titleActors ? listAtor.filter((actor) => titleActors.includes(String(actor.id)) ) : [],
         }
+
+        alert(title.atores);
 
         titleProps ?
             updateTitle(title).then((data) => {
@@ -95,11 +97,14 @@ export default function TitleRegister() {
     }
 
     function handleInputChange7(event: any) {
-        setTitleActors(event.target.value);
+        // Obtém todos os valores selecionados no elemento select
+        const selectedOptions = Array.from(event.target.selectedOptions, (option: any) => option.value);
+        // Atualiza o estado titleClassType com os valores selecionados
+        setTitleActors(selectedOptions);
     }
 
     React.useEffect(() => {
-        
+
         params.state ? (
             console.log(params.state.titleProps),
             setTitleProps(params.state.titleProps)
@@ -108,7 +113,7 @@ export default function TitleRegister() {
     }, []);
 
     React.useEffect(() => {
-        
+
         titleProps ? (
             setTitleName(titleProps.name),
             setTitleYear(titleProps.year),
@@ -234,9 +239,9 @@ export default function TitleRegister() {
                     <div className='form-div'>
                         <label>Elenco:</label>
                         <select
-                            className="input-space"
+                            className="input-multiselect"
                             name="diretor"
-                            onChange={handleInputChange6}
+                            onChange={handleInputChange7}
                             multiple
                         >
                             {listAtor.map((actor) => (
