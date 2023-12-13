@@ -11,6 +11,7 @@ export default function updateItem(item: any): Promise<any> {
                 serialNumber: item.numSerie,
                 dtAquisicao: item.dtAquisicao,
                 itemType: item.tipoItem,
+                titleDTO: item.title
             },
             {
                 headers: {

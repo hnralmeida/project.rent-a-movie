@@ -17,14 +17,14 @@ export default function ClassRegister() {
         classProps ?
             updateClass(name, value, returnDate, classProps.id).then((data) => {
                 navigate(-1)
-                alert(data + " Atualizado com sucesso!");
+                alert(name + "Atualizado com sucesso!");
             }).catch((error) => {
                 alert(error);
             })
             :
             postClass(name, value, returnDate).then((data) => {
                 navigate(-1)
-                alert(data + " Cadastrado com sucesso!");
+                alert(name + "Cadastrado com sucesso!");
             }).catch((error) => {
                 alert(error);
             });
@@ -100,7 +100,7 @@ export default function ClassRegister() {
                             className='submit-button'
                             type="submit"
                         >
-                            {classProps ? 'Editar Filme' : 'Cadastrar Filme'}
+                            {classProps ? 'Editar Classe' : 'Cadastrar Classe'}
                         </button>
                     </div>
                 </form>

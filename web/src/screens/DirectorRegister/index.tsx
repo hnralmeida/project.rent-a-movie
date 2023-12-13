@@ -45,7 +45,7 @@ export default function DirectorRegister() {
                     Voltar
                 </button>
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    <div className='input-center'>
                         <label>Nome:</label>
                         <input
                             type="text"

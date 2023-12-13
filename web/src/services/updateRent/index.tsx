@@ -1,6 +1,6 @@
 import api from "../api";
 
-export default function updateent(rent: any): Promise<any> {
+export default function updatRent(rent: any): Promise<any> {
 
     return new Promise((resolve, reject) => {
         api.put("/api/client/" + rent.id,
