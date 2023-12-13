@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TitleDTO {
     private Long id;
+    private Long year;
     private String name;
     private String synopsis;
     private String category;
